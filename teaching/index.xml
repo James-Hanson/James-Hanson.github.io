@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Teaching on James E. Hanson</title>
-    <link>~jehanson2/teaching/</link>
+    <link>teaching/</link>
     <description>Recent content in Teaching on James E. Hanson</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Sun, 01 Jan 2017 00:00:00 -0600</lastBuildDate>
     
-	<atom:link href="~jehanson2/teaching/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="teaching/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

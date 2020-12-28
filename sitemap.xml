@@ -4,7 +4,7 @@
     
     <url>
     
-      <loc>~jehanson2/conferences/</loc>
+      <loc>conferences/</loc>
       <lastmod>2017-01-01T00:00:00-06:00</lastmod>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
     
-      <loc>~jehanson2/publications/</loc>
+      <loc>publications/</loc>
       <lastmod>2017-01-01T00:00:00-06:00</lastmod>
     </url>
     
@@ -20,7 +20,7 @@
     
     <url>
     
-      <loc>~jehanson2/teaching/</loc>
+      <loc>teaching/</loc>
       <lastmod>2017-01-01T00:00:00-06:00</lastmod>
     </url>
     
@@ -28,7 +28,7 @@
     
     <url>
     
-      <loc>~jehanson2/categories/</loc>
+      <loc>categories/</loc>
       <priority>0</priority>
     </url>
     
@@ -36,7 +36,7 @@
     
     <url>
     
-      <loc>~jehanson2/</loc>
+      <loc>/</loc>
       <lastmod>2016-04-20T00:00:00-05:00</lastmod>
       <priority>0</priority>
     </url>
@@ -45,7 +45,7 @@
     
     <url>
     
-      <loc>~jehanson2/publication_types/</loc>
+      <loc>/publication_types/</loc>
       <priority>0</priority>
     </url>
     
@@ -53,7 +53,7 @@
     
     <url>
     
-      <loc>~jehanson2/tags/</loc>
+      <loc>tags/</loc>
       <priority>0</priority>
     </url>
     

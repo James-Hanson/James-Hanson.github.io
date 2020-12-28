@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Homes on James E. Hanson</title>
-    <link>~jehanson2/home/</link>
+    <link>home/</link>
     <description>Recent content in Homes on James E. Hanson</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Wed, 20 Apr 2016 00:00:00 -0500</lastBuildDate>
     
-	<atom:link href="~jehanson2/home/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="home/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>~jehanson2/home/about/</link>
+      <link>home/about/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 -0500</pubDate>
       
-      <guid>~jehanson2/home/about/</guid>
+      <guid>home/about/</guid>
       <description>Home I am a graduate student at the University of Wisconsin-Madison studying logic and in particular continuous logic and metric structure theory.
 I am a student of Uri Andrews.</description>
     </item>
     
     <item>
       <title>Recent Posts</title>
-      <link>~jehanson2/home/posts/</link>
+      <link>home/posts/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 -0500</pubDate>
       
-      <guid>~jehanson2/home/posts/</guid>
+      <guid>home/posts/</guid>
       <description></description>
     </item>
     
