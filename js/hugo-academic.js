@@ -3,6 +3,35 @@
  *  https://github.com/gcushen/hugo-academic
  **************************************************/
 
+// Fallback for the mobile nav menu when Bootstrap's collapse plugin is unavailable.
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.jQuery && window.jQuery.fn && window.jQuery.fn.collapse) {
+    return;
+  }
+
+  var toggler = document.querySelector('.navbar-toggler[data-target="#navbar"]');
+  var navbar = document.querySelector('#navbar');
+
+  if (!toggler || !navbar) {
+    return;
+  }
+
+  toggler.addEventListener('click', function () {
+    var expanded = toggler.getAttribute('aria-expanded') === 'true';
+    toggler.setAttribute('aria-expanded', String(!expanded));
+    navbar.classList.toggle('show', !expanded);
+  });
+
+  navbar.addEventListener('click', function (event) {
+    var link = event.target.closest('a');
+
+    if (link && !link.classList.contains('dropdown-toggle')) {
+      toggler.setAttribute('aria-expanded', 'false');
+      navbar.classList.remove('show');
+    }
+  });
+});
+
 (function($){
 
   /* ---------------------------------------------------------------------------
