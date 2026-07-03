@@ -150,7 +150,12 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
   min-width: 410vw;
   display: flex;
   align-items: center;
-  animation: zoo-slide 300s linear infinite;
+  /* Scroll position is driven by JS (hold-to-scrub, see makeScrubber): the track
+     travels from translateX(40vw) to translateX(-340vw) -- the same span the
+     old `zoo-slide` keyframes covered -- at the original 300s idle pace, and
+     accelerates while the advance button is held. */
+  transform: translateX(40vw);
+  will-change: transform;
 }
 .neostability-track img {
   display: block;
@@ -158,10 +163,6 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
   width: auto;
   max-width: none;
   object-fit: contain;
-}
-@keyframes zoo-slide {
-  from { transform: translateX(40vw); }
-  to { transform: translateX(-340vw); }
 }
 .thank-slide.active {
   display: flex;
@@ -389,28 +390,88 @@ function createForeverSlide() {
     }
   }
 
-  // Drive the dolly whenever the slide is active; reset to the start otherwise.
-  const DUR = 33000, easeOut = t => 1 - Math.pow(1 - t, 3);
-  let rafId = 0;
-  function runDolly() {
-    cancelAnimationFrame(rafId);
-    const t0 = performance.now();
-    (function frame(now) {
-      const t = Math.min(1, (now - t0) / DUR);
-      render(C_START + (C_END - C_START) * easeOut(t));
-      if (t < 1) rafId = requestAnimationFrame(frame);
-    })(performance.now());
-  }
+  // The dolly is a hold-to-scrub scene (see makeScrubber): progress p in [0,1]
+  // drives the camera from C_START to C_END. Idle it drifts end-to-end in 18s
+  // (1.83x the original 33s); holding advance accelerates it. Unlike the neo
+  // slide it does NOT auto-advance: it hangs on the last shot (hangAtEnd) and a
+  // further advance press moves to the next slide. show() runs
+  // scrubStart/scrubStop on enter/leave.
   render(C_START);
-  new MutationObserver(() => {
-    if (el.classList.contains('active')) runDolly();
-    else { cancelAnimationFrame(rafId); render(C_START); }
-  }).observe(el, { attributes: true, attributeFilter: ['class'] });
+  // Ease-out on the camera parameter: p (linear in time) is bent so the dolly
+  // settles onto the last shot. Exponent 3 (cubic) gives a strong slow-down at
+  // the end -- this matches the original animation's easing.
+  const ease = p => 1 - Math.pow(1 - p, 3);
+  makeScrubber(30, 18, p => render(C_START + (C_END - C_START) * ease(p)), true, ACCEL_P * 0.2);
   // Re-render on resize/fullscreen so the live aspect ratio is reapplied even
-  // after the dolly has finished (when no animation frame is running).
+  // when no animation frame is running (idle at the start or end of the dolly).
   window.addEventListener('resize', () => render(lastC));
 
   return el;
+}
+
+// ---- Hold-to-scrub advance (shared by the forever & neostability slides) --
+// These slides hold a single wide/animated scene. Instead of jumping straight
+// to the next slide, the advance button (Right arrow / Space, or a
+// press-and-hold pointer) scrubs the scene forward, ACCELERATING the longer
+// it's held; when the scene reaches its end it advances to the next slide.
+// Idle (not held) it drifts forward at that slide's original pace (baseDur
+// seconds end-to-end). A scrubbable slide calls makeScrubber(index, baseDur,
+// render) with render(p), p in [0,1] mapping start->end. show() calls
+// scrubStart()/scrubStop() as the slide enters and leaves; the keydown/pointer
+// handlers toggle the active scrubber's boost. ACCEL_P is tuned so a continuous
+// hold from the start reaches the end in ~1.7s regardless of baseDur.
+const ACCEL_P = 0.658;               // progress/s^2 added while held (ramps with hold time)
+const scrubbers = {};                // slide index -> scrubber
+let activeScrubber = null;
+// A still-held advance key would auto-repeat and machine-gun through the slides
+// after a scrub auto-advances. scrubLatched blocks advances until the key is
+// released; advanceHeld tracks whether an advance key is currently physically
+// down (so we only latch when a key was actually held, not on idle drift).
+let scrubLatched = false, advanceHeld = false;
+
+// hangAtEnd: instead of auto-advancing when the scene ends, hang on the last
+// frame (s.hung) and wait for a fresh advance press (handled in keydown).
+// accel: boost acceleration (progress/s^2) for the held keypress only; defaults
+// to ACCEL_P. Raising it makes the hold ramp up faster without touching baseV
+// (the idle drift / original animation pace).
+function makeScrubber(index, baseDur, render, hangAtEnd, accel) {
+  const s = { index, baseV: 1 / baseDur, render, hangAtEnd: !!hangAtEnd,
+              accel: accel || ACCEL_P,
+              p: 0, boost: false, hold: 0, hung: false, raf: 0, last: 0 };
+  scrubbers[index] = s;
+  return s;
+}
+function scrubStart(s) {
+  s.p = 0; s.boost = false; s.hold = 0; s.hung = false;
+  s.render(0);
+  cancelAnimationFrame(s.raf);
+  s.last = performance.now();
+  s.raf = requestAnimationFrame(function frame(now) {
+    const dt = Math.min(0.05, (now - s.last) / 1000);  // clamp so a stalled tab doesn't jump
+    s.last = now;
+    s.hold = s.boost ? s.hold + dt : 0;
+    const v = s.baseV + (s.boost ? s.accel * s.hold : 0);
+    s.p += v * dt;
+    if (s.p >= 1) {                  // reached the end of the scene
+      s.p = 1; s.render(1);
+      s.raf = 0; s.boost = false; s.hold = 0;
+      // A still-held advance key must be released before it advances again:
+      // for hangAtEnd this keeps the held key from jumping off the last frame;
+      // otherwise it stops the auto-advance from machine-gunning onward.
+      scrubLatched = advanceHeld;
+      if (s.hangAtEnd) s.hung = true;   // hang on the last shot; wait for a press
+      else show(current + 1);           // advance straight to the next slide
+      return;
+    }
+    s.render(s.p);
+    s.raf = requestAnimationFrame(frame);
+  });
+  activeScrubber = s;
+}
+function scrubStop(s) {
+  cancelAnimationFrame(s.raf); s.raf = 0;
+  s.boost = false; s.hold = 0;
+  if (activeScrubber === s) activeScrubber = null;
 }
 
 function createNeostabilitySlide() {
@@ -423,6 +484,12 @@ function createNeostabilitySlide() {
     <img class="title-overlay" src="assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
     <img class="footer-overlay" src="assets/footer-numbers/footer-09.png" alt="-3">
   `;
+  // Scrub the wide diagram sideways; idle drift covers it in the original 300s.
+  const track = el.querySelector('.neostability-track');
+  const START_X = 40, END_X = -340;   // vw, matches the old zoo-slide span
+  makeScrubber(46, 300, p => {
+    track.style.transform = `translateX(${(START_X + (END_X - START_X) * p).toFixed(3)}vw)`;
+  });
   return el;
 }
 
@@ -485,6 +552,28 @@ function settleWhenReady(el, readyEvent) {
   });
 }
 
+// Warm a slide's media ahead of time so navigating to it paints instantly
+// instead of flashing. Decoding a display:none <img> still populates the
+// browser's decode cache, so the later display:block paint has nothing left to
+// decode; videos buffer their first frame so they don't show a blank frame.
+// Idempotent and fire-and-forget: safe to call on every navigation.
+function prefetch(idx) {
+  if (idx < 0 || idx >= slides.length) return;
+  const warm = m => {
+    if (m.tagName === 'IMG') {
+      if (!(m.complete && m.naturalWidth > 0) || !m.dataset.decoded) {
+        m.decode?.().then(() => { m.dataset.decoded = '1'; }).catch(() => {});
+      }
+    } else if (m.tagName === 'VIDEO') {
+      if (m.preload !== 'auto') m.preload = 'auto';
+      if (m.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) m.load();
+    }
+  };
+  const el = slides[idx];
+  if (el.tagName === 'IMG' || el.tagName === 'VIDEO') warm(el);
+  else el.querySelectorAll?.('img, video').forEach(warm);
+}
+
 function readyToShow(el) {
   if (el.tagName === 'IMG') {
     if (el.complete && el.naturalWidth > 0) return Promise.resolve();
@@ -520,6 +609,7 @@ async function show(idx) {
     previous.classList.remove('active');
     if (previous.tagName === 'VIDEO') previous.pause();
     previous.querySelectorAll?.('video').forEach(v => v.pause());
+    if (scrubbers[current]) scrubStop(scrubbers[current]);
   }
 
   current = idx;
@@ -532,12 +622,19 @@ async function show(idx) {
     v.currentTime = 0;
     v.play().catch(() => undefined);
   });
+  if (scrubbers[idx]) scrubStart(scrubbers[idx]);
 
   counter.textContent = `${current + 1} / ${slides.length}`;
   // Reflect the current slide in the URL hash (1-based) so a refresh or a
   // shared link reopens on the same slide.
   const hash = `#${current + 1}`;
   if (location.hash !== hash) history.replaceState(null, '', hash);
+
+  // Warm the neighbours so the next swipe/keypress paints with no flicker.
+  // Look ahead two (forward is the common direction) and one back. Deferred to
+  // idle time so it never competes with showing the current slide.
+  const warmNeighbours = () => { prefetch(idx + 1); prefetch(idx + 2); prefetch(idx - 1); };
+  (window.requestIdleCallback || window.requestAnimationFrame)(warmNeighbours);
 }
 
 // Read a 1-based slide number from the URL hash; default to slide 1.
@@ -547,9 +644,40 @@ function slideFromHash() {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight') show(current + 1);
-  if (e.key === 'ArrowLeft') show(current - 1);
+  // Space (and Shift+Space) advance/retreat like the arrow keys, matching how
+  // a presentation remote / PgDn behaves. preventDefault stops Space from also
+  // scrolling the page.
+  const advance = e.key === 'ArrowRight' || (e.key === ' ' && !e.shiftKey);
+  const retreat = e.key === 'ArrowLeft'  || (e.key === ' ' && e.shiftKey);
+  if (advance) {
+    e.preventDefault();
+    advanceHeld = true;
+    // After a scrub auto-advances, ignore the still-held key's auto-repeat until
+    // it's released and pressed again (scrubLatched is set in scrubStart).
+    if (scrubLatched) return;
+    // On a scrubbable slide, holding advance scrubs the scene and only jumps to
+    // the next slide once it reaches the end; elsewhere it advances at once. A
+    // scene that hangs on its last frame advances on the next fresh press.
+    if (activeScrubber) {
+      if (activeScrubber.hung) show(current + 1);
+      else activeScrubber.boost = true;
+    } else show(current + 1);
+  }
+  if (retreat) { e.preventDefault(); show(current - 1); }
 });
+document.addEventListener('keyup', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') {
+    advanceHeld = false; scrubLatched = false;
+    if (activeScrubber) activeScrubber.boost = false;
+  }
+});
+
+// Press-and-hold with a mouse or finger also scrubs the active scene.
+viewer.addEventListener('pointerdown', () => { if (activeScrubber) activeScrubber.boost = true; });
+const scrubReleasePointer = () => { if (activeScrubber) activeScrubber.boost = false; };
+viewer.addEventListener('pointerup', scrubReleasePointer);
+viewer.addEventListener('pointercancel', scrubReleasePointer);
+viewer.addEventListener('pointerleave', scrubReleasePointer);
 
 // Touch: horizontal swipe. Swipe left = next, swipe right = previous.
 let touchX = 0, touchY = 0;
