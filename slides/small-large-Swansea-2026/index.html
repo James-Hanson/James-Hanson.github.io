@@ -503,17 +503,19 @@ function createThankSlide() {
 function createDefaultSlide(i, index) {
   if (animations[index] !== undefined) {
     const el = document.createElement('video');
-    el.src = animations[index];
+    // Keep videos out of the initial page-load rush. Their source is attached
+    // by prefetch() when the viewer gets within two slides of them.
+    el.dataset.src = animations[index];
     el.loop = !noLoopAnimations.has(index);
     el.muted = true;
     el.playsInline = true;
-    el.preload = 'auto';
+    el.preload = 'none';
     return el;
   }
 
   const n = String(i).padStart(2, '0');
   const el = document.createElement('img');
-  el.src = `slides/slide-${n}.png`;
+  el.dataset.src = `slides/slide-${n}.png`;
   el.alt = `Slide ${i}`;
   el.loading = 'eager';
   el.decoding = 'async';
@@ -561,12 +563,12 @@ function prefetch(idx) {
   if (idx < 0 || idx >= slides.length) return;
   const warm = m => {
     if (m.tagName === 'IMG') {
+      beginImageLoad(m);
       if (!(m.complete && m.naturalWidth > 0) || !m.dataset.decoded) {
         m.decode?.().then(() => { m.dataset.decoded = '1'; }).catch(() => {});
       }
     } else if (m.tagName === 'VIDEO') {
-      if (m.preload !== 'auto') m.preload = 'auto';
-      if (m.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) m.load();
+      beginVideoLoad(m);
     }
   };
   const el = slides[idx];
@@ -574,8 +576,26 @@ function prefetch(idx) {
   else el.querySelectorAll?.('img, video').forEach(warm);
 }
 
+// Default slide images also get their sources only when they enter the
+// lookahead window. Custom-slide images already have a normal src attribute.
+function beginImageLoad(image) {
+  if (image.getAttribute('src') || !image.dataset.src) return;
+  image.src = image.dataset.src;
+}
+
+// Attach a video's source exactly once. Calling load() again while a request is
+// in flight resets the media element and can restart the download, which made
+// the large animation on slide 6 intermittently slow.
+function beginVideoLoad(video) {
+  if (video.getAttribute('src') || !video.dataset.src) return;
+  video.preload = 'auto';
+  video.src = video.dataset.src;
+  video.load();
+}
+
 function readyToShow(el) {
   if (el.tagName === 'IMG') {
+    beginImageLoad(el);
     if (el.complete && el.naturalWidth > 0) return Promise.resolve();
     if (el.decode) return el.decode().catch(() => undefined);
     return settleWhenReady(el, 'load');
@@ -590,7 +610,7 @@ function readyToShow(el) {
     return Promise.all(media.map(readyToShow));
   }
 
-  el.load();
+  beginVideoLoad(el);
   return settleWhenReady(el, 'canplay');
 }
 

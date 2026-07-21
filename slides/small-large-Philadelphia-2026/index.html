@@ -54,7 +54,7 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
   max-width: none;
 }
 .title-slide .title-main   { left: 2%;    top: 8%;    width: 99.5%; }
-.title-slide .title-event  { left: 31%;   top: 3.96%; width: 66.3%; }
+.title-slide .title-event  { left: 42.17%; top: 3.96%; width: 53.57%; }
 .title-slide .title-author { left: 3.62%; top: 78.07%; width: 47.32%; }
 .forever-slide {
   background: linear-gradient(to bottom, #1b477f 60%, #15335f 60%);
@@ -63,7 +63,7 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
 /* SVG ground grid: viewBox 0..100 maps to vw (x) and vh (y) via non-uniform
    scaling, so coordinates match the pigeons' vw/vh positions exactly.
    All motion is JS-driven (real perspective reprojection per frame). */
-.forever-slide svg {
+.gscene svg {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   /* Fade the lines out where they crowd: near the horizon (the linear band,
@@ -81,7 +81,7 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
     radial-gradient(34vw 12vh at 92vw 60vh, transparent 30%, #000 80%);
   mask-composite: intersect;
 }
-.forever-slide .sun {
+.gscene .sun {
   position: absolute;
   left: 71%; top: 28%;
   width: min(27vw, 27vh); aspect-ratio: 1;
@@ -112,7 +112,7 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
    the gap down to the masked, fading discrete lines, so there's no dim trough
    between the bunched lines and the horizon. Hard top stop at 60% keeps the
    horizon crisp. Above the grid, below the pigeons. */
-.forever-slide .grid-fade {
+.gscene .grid-fade {
   position: absolute; inset: 0;
   pointer-events: none;
   /* Horizon band (last layer) + a cyan blob at each vanishing point (first two
@@ -215,18 +215,15 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
 <script>
 // Animated slides: { pageIndex: 'path/to/video.webm' }
 const animations = {
-  5:  'slides/0-indisc-seq-anim.webm',
-  25: 'slides/cpt-morph-v4.webm',
-  47: 'slides/k-splitting.webm',
-  48: 'slides/4-k-end-homogeneity.webm',
+  5:  '../small-large-ASL-2026/slides/0-indisc-seq-anim.webm',
+  25: '../small-large-ASL-2026/slides/cpt-morph-v4.webm',
+  47: '../small-large-ASL-2026/slides/k-splitting.webm',
+  48: '../small-large-ASL-2026/slides/4-k-end-homogeneity.webm',
 };
 
 // Animations that play once and hold their last frame (one-way morphs)
 // rather than looping. The rest loop continuously.
 const noLoopAnimations = new Set([25]);
-
-// This parallel entry point uses the safer, lookahead-based media loader.
-const fixedMediaLoading = true;
 
 const viewer = document.getElementById('viewer');
 const counter = document.getElementById('counter');
@@ -239,9 +236,9 @@ function createTitleSlide() {
   el.className = 'custom-slide title-slide';
   el.innerHTML = `
     <div class="title-stage">
-      <img class="title-main" src="assets/title/main-title.png" alt="Small, large cardinals and neostability theory">
-      <img class="title-event" src="assets/title/event.png" alt="Logic Colloquium 2026, Swansea University">
-      <img class="title-author" src="assets/title/author.png" alt="James E. Hanson, Iowa State University">
+      <img class="title-main" src="../small-large-ASL-2026/assets/title/main-title.png" alt="Small, large cardinals and neostability theory">
+      <img class="title-event" src="../small-large-ASL-2026/assets/title/event.png" alt="ASL North American Meeting 2026, University of Pennsylvania, Philadelphia">
+      <img class="title-author" src="../small-large-ASL-2026/assets/title/author.png" alt="James E. Hanson, Iowa State University">
     </div>
   `;
   return el;
@@ -249,7 +246,7 @@ function createTitleSlide() {
 
 function createForeverSlide() {
   const el = document.createElement('section');
-  el.className = 'custom-slide forever-slide';
+  el.className = 'custom-slide forever-slide gscene';
 
   // ---- Pinhole camera: a real dolly shot --------------------------------
   // World: X right, Y up, Z into the screen. Camera at (c, 0, 0) looking +Z,
@@ -333,8 +330,8 @@ function createForeverSlide() {
     </svg>
     <div class="sun" aria-hidden="true"></div>
     <div class="grid-fade" aria-hidden="true"></div>
-    <img class="title-overlay" src="assets/title-overlays/title-overlay-1.png" alt="You can't do this forever">
-    <img class="footer-overlay" src="assets/footer-numbers/footer-03.png" alt="-9">
+    <img class="title-overlay" src="../small-large-ASL-2026/assets/title-overlays/title-overlay-1.png" alt="You can't do this forever">
+    <img class="footer-overlay" src="../small-large-ASL-2026/assets/footer-numbers/footer-03.png" alt="-9">
   `;
   const gridPath = el.querySelector('svg path');
 
@@ -348,11 +345,11 @@ function createForeverSlide() {
     const wrap = document.createElement('div');
     wrap.className = (i === 0 ? 'pigeon lead' : 'pigeon') + (lo ? ' lo' : '');
     const img = document.createElement('img');
-    img.src = lo ? 'assets/pigeon-clipart-cutout-lo.png' : 'assets/pigeon-clipart-cutout.png';
+    img.src = lo ? '../small-large-ASL-2026/assets/pigeon-clipart-cutout-lo.png' : '../small-large-ASL-2026/assets/pigeon-clipart-cutout.png';
     img.alt = '';
     const haze = document.createElement('img');     // pre-coloured silhouette overlay
     haze.className = 'pigeon-haze';
-    haze.src = lo ? 'assets/pigeon-haze-lo.png' : 'assets/pigeon-haze.png';
+    haze.src = lo ? '../small-large-ASL-2026/assets/pigeon-haze-lo.png' : '../small-large-ASL-2026/assets/pigeon-haze.png';
     haze.alt = '';
     haze.style.opacity = '0';
     wrap.appendChild(img);
@@ -482,10 +479,10 @@ function createNeostabilitySlide() {
   el.className = 'custom-slide neostability-slide';
   el.innerHTML = `
     <div class="neostability-track">
-      <img src="assets/higher-arity-stability-diagram.svg" alt="Higher-arity neostability diagram">
+      <img src="../small-large-ASL-2026/assets/higher-arity-stability-diagram.svg" alt="Higher-arity neostability diagram">
     </div>
-    <img class="title-overlay" src="assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
-    <img class="footer-overlay" src="assets/footer-numbers/footer-09.png" alt="-3">
+    <img class="title-overlay" src="../small-large-ASL-2026/assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
+    <img class="footer-overlay" src="../small-large-ASL-2026/assets/footer-numbers/footer-09.png" alt="-3">
   `;
   // Scrub the wide diagram sideways; idle drift covers it in the original 300s.
   const track = el.querySelector('.neostability-track');
@@ -497,36 +494,33 @@ function createNeostabilitySlide() {
 }
 
 function createThankSlide() {
+  // Plain black "Thank you" card. A variant with an animated grid background
+  // behind the (black-keyed) text lives in index.thankyou-grid.html.
   const el = document.createElement('section');
   el.className = 'custom-slide thank-slide';
-  el.innerHTML = `<img src="slides/slide-54.png" alt="Thank you">`;
+  el.innerHTML = `<img src="../small-large-ASL-2026/slides/slide-54.png" alt="Thank you">`;
   return el;
 }
 
 function createDefaultSlide(i, index) {
   if (animations[index] !== undefined) {
     const el = document.createElement('video');
-    if (fixedMediaLoading) {
-      // Keep videos out of the initial page-load rush. Their source is attached
-      // by prefetch() when the viewer gets within two slides of them.
-      el.dataset.src = animations[index];
-    } else {
-      el.src = animations[index];
-    }
+    // Keep videos out of the initial page-load rush. Their source is attached
+    // by prefetch() when the viewer gets within two slides of them.
+    el.dataset.src = animations[index];
     el.loop = !noLoopAnimations.has(index);
     el.muted = true;
     el.playsInline = true;
-    el.preload = fixedMediaLoading ? 'none' : 'auto';
+    el.preload = 'none';
     return el;
   }
 
   const n = String(i).padStart(2, '0');
+  const slideSrc = i >= 2 && i <= 5
+    ? `slides/slide-${n}.png`
+    : `../small-large-ASL-2026/slides/slide-${n}.png`;
   const el = document.createElement('img');
-  if (fixedMediaLoading) {
-    el.dataset.src = `slides/slide-${n}.png`;
-  } else {
-    el.src = `slides/slide-${n}.png`;
-  }
+  el.dataset.src = slideSrc;
   el.alt = `Slide ${i}`;
   el.loading = 'eager';
   el.decoding = 'async';
@@ -579,12 +573,7 @@ function prefetch(idx) {
         m.decode?.().then(() => { m.dataset.decoded = '1'; }).catch(() => {});
       }
     } else if (m.tagName === 'VIDEO') {
-      if (fixedMediaLoading) {
-        beginVideoLoad(m);
-      } else {
-        if (m.preload !== 'auto') m.preload = 'auto';
-        if (m.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) m.load();
-      }
+      beginVideoLoad(m);
     }
   };
   const el = slides[idx];
@@ -626,8 +615,7 @@ function readyToShow(el) {
     return Promise.all(media.map(readyToShow));
   }
 
-  if (fixedMediaLoading) beginVideoLoad(el);
-  else el.load();
+  beginVideoLoad(el);
   return settleWhenReady(el, 'canplay');
 }
 
