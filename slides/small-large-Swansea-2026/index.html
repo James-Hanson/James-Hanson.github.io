@@ -215,10 +215,10 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
 <script>
 // Animated slides: { pageIndex: 'path/to/video.webm' }
 const animations = {
-  5:  'slides/0-indisc-seq-anim.webm',
-  25: 'slides/cpt-morph-v4.webm',
-  47: 'slides/k-splitting.webm',
-  48: 'slides/4-k-end-homogeneity.webm',
+  5:  '../small-large-common/slides/0-indisc-seq-anim.webm',
+  25: '../small-large-common/slides/cpt-morph-v4.webm',
+  47: '../small-large-common/slides/k-splitting.webm',
+  48: '../small-large-common/slides/4-k-end-homogeneity.webm',
 };
 
 // Animations that play once and hold their last frame (one-way morphs)
@@ -236,9 +236,9 @@ function createTitleSlide() {
   el.className = 'custom-slide title-slide';
   el.innerHTML = `
     <div class="title-stage">
-      <img class="title-main" src="assets/title/main-title.png" alt="Small, large cardinals and neostability theory">
+      <img class="title-main" src="../small-large-common/assets/title/main-title.png" alt="Small, large cardinals and neostability theory">
       <img class="title-event" src="assets/title/event.png" alt="Logic Colloquium 2026, Swansea University">
-      <img class="title-author" src="assets/title/author.png" alt="James E. Hanson, Iowa State University">
+      <img class="title-author" src="../small-large-common/assets/title/author.png" alt="James E. Hanson, Iowa State University">
     </div>
   `;
   return el;
@@ -330,8 +330,8 @@ function createForeverSlide() {
     </svg>
     <div class="sun" aria-hidden="true"></div>
     <div class="grid-fade" aria-hidden="true"></div>
-    <img class="title-overlay" src="assets/title-overlays/title-overlay-1.png" alt="You can't do this forever">
-    <img class="footer-overlay" src="assets/footer-numbers/footer-03.png" alt="-9">
+    <img class="title-overlay" src="../small-large-common/assets/title-overlays/title-overlay-1.png" alt="You can't do this forever">
+    <img class="footer-overlay" src="../small-large-common/assets/footer-numbers/footer-03.png" alt="-9">
   `;
   const gridPath = el.querySelector('svg path');
 
@@ -345,11 +345,11 @@ function createForeverSlide() {
     const wrap = document.createElement('div');
     wrap.className = (i === 0 ? 'pigeon lead' : 'pigeon') + (lo ? ' lo' : '');
     const img = document.createElement('img');
-    img.src = lo ? 'assets/pigeon-clipart-cutout-lo.png' : 'assets/pigeon-clipart-cutout.png';
+    img.src = lo ? '../small-large-common/assets/pigeon-clipart-cutout-lo.png' : '../small-large-common/assets/pigeon-clipart-cutout.png';
     img.alt = '';
     const haze = document.createElement('img');     // pre-coloured silhouette overlay
     haze.className = 'pigeon-haze';
-    haze.src = lo ? 'assets/pigeon-haze-lo.png' : 'assets/pigeon-haze.png';
+    haze.src = lo ? '../small-large-common/assets/pigeon-haze-lo.png' : '../small-large-common/assets/pigeon-haze.png';
     haze.alt = '';
     haze.style.opacity = '0';
     wrap.appendChild(img);
@@ -479,10 +479,10 @@ function createNeostabilitySlide() {
   el.className = 'custom-slide neostability-slide';
   el.innerHTML = `
     <div class="neostability-track">
-      <img src="assets/higher-arity-stability-diagram.svg" alt="Higher-arity neostability diagram">
+      <img src="../small-large-common/assets/higher-arity-stability-diagram.svg" alt="Higher-arity neostability diagram">
     </div>
-    <img class="title-overlay" src="assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
-    <img class="footer-overlay" src="assets/footer-numbers/footer-09.png" alt="-3">
+    <img class="title-overlay" src="../small-large-common/assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
+    <img class="footer-overlay" src="../small-large-common/assets/footer-numbers/footer-09.png" alt="-3">
   `;
   // Scrub the wide diagram sideways; idle drift covers it in the original 300s.
   const track = el.querySelector('.neostability-track');
@@ -496,7 +496,7 @@ function createNeostabilitySlide() {
 function createThankSlide() {
   const el = document.createElement('section');
   el.className = 'custom-slide thank-slide';
-  el.innerHTML = `<img src="slides/slide-54.png" alt="Thank you">`;
+  el.innerHTML = `<img src="../small-large-common/slides/slide-54.png" alt="Thank you">`;
   return el;
 }
 
@@ -515,7 +515,7 @@ function createDefaultSlide(i, index) {
 
   const n = String(i).padStart(2, '0');
   const el = document.createElement('img');
-  el.dataset.src = `slides/slide-${n}.png`;
+  el.dataset.src = `../small-large-common/slides/slide-${n}.png`;
   el.alt = `Slide ${i}`;
   el.loading = 'eager';
   el.decoding = 'async';

@@ -215,10 +215,10 @@ html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
 <script>
 // Animated slides: { pageIndex: 'path/to/video.webm' }
 const animations = {
-  5:  '../small-large-ASL-2026/slides/0-indisc-seq-anim.webm',
-  25: '../small-large-ASL-2026/slides/cpt-morph-v4.webm',
-  47: '../small-large-ASL-2026/slides/k-splitting.webm',
-  48: '../small-large-ASL-2026/slides/4-k-end-homogeneity.webm',
+  5:  '../small-large-common/slides/0-indisc-seq-anim.webm',
+  25: '../small-large-common/slides/cpt-morph-v4.webm',
+  47: '../small-large-common/slides/k-splitting.webm',
+  48: '../small-large-common/slides/4-k-end-homogeneity.webm',
 };
 
 // Animations that play once and hold their last frame (one-way morphs)
@@ -236,9 +236,9 @@ function createTitleSlide() {
   el.className = 'custom-slide title-slide';
   el.innerHTML = `
     <div class="title-stage">
-      <img class="title-main" src="../small-large-ASL-2026/assets/title/main-title.png" alt="Small, large cardinals and neostability theory">
-      <img class="title-event" src="../small-large-ASL-2026/assets/title/event.png" alt="ASL North American Meeting 2026, University of Pennsylvania, Philadelphia">
-      <img class="title-author" src="../small-large-ASL-2026/assets/title/author.png" alt="James E. Hanson, Iowa State University">
+      <img class="title-main" src="../small-large-common/assets/title/main-title.png" alt="Small, large cardinals and neostability theory">
+      <img class="title-event" src="assets/title/event.png" alt="ASL North American Meeting 2026, University of Pennsylvania, Philadelphia">
+      <img class="title-author" src="../small-large-common/assets/title/author.png" alt="James E. Hanson, Iowa State University">
     </div>
   `;
   return el;
@@ -330,8 +330,8 @@ function createForeverSlide() {
     </svg>
     <div class="sun" aria-hidden="true"></div>
     <div class="grid-fade" aria-hidden="true"></div>
-    <img class="title-overlay" src="../small-large-ASL-2026/assets/title-overlays/title-overlay-1.png" alt="You can't do this forever">
-    <img class="footer-overlay" src="../small-large-ASL-2026/assets/footer-numbers/footer-03.png" alt="-9">
+    <img class="title-overlay" src="../small-large-common/assets/title-overlays/title-overlay-1.png" alt="You can't do this forever">
+    <img class="footer-overlay" src="../small-large-common/assets/footer-numbers/footer-03.png" alt="-9">
   `;
   const gridPath = el.querySelector('svg path');
 
@@ -345,11 +345,11 @@ function createForeverSlide() {
     const wrap = document.createElement('div');
     wrap.className = (i === 0 ? 'pigeon lead' : 'pigeon') + (lo ? ' lo' : '');
     const img = document.createElement('img');
-    img.src = lo ? '../small-large-ASL-2026/assets/pigeon-clipart-cutout-lo.png' : '../small-large-ASL-2026/assets/pigeon-clipart-cutout.png';
+    img.src = lo ? '../small-large-common/assets/pigeon-clipart-cutout-lo.png' : '../small-large-common/assets/pigeon-clipart-cutout.png';
     img.alt = '';
     const haze = document.createElement('img');     // pre-coloured silhouette overlay
     haze.className = 'pigeon-haze';
-    haze.src = lo ? '../small-large-ASL-2026/assets/pigeon-haze-lo.png' : '../small-large-ASL-2026/assets/pigeon-haze.png';
+    haze.src = lo ? '../small-large-common/assets/pigeon-haze-lo.png' : '../small-large-common/assets/pigeon-haze.png';
     haze.alt = '';
     haze.style.opacity = '0';
     wrap.appendChild(img);
@@ -479,10 +479,10 @@ function createNeostabilitySlide() {
   el.className = 'custom-slide neostability-slide';
   el.innerHTML = `
     <div class="neostability-track">
-      <img src="../small-large-ASL-2026/assets/higher-arity-stability-diagram.svg" alt="Higher-arity neostability diagram">
+      <img src="../small-large-common/assets/higher-arity-stability-diagram.svg" alt="Higher-arity neostability diagram">
     </div>
-    <img class="title-overlay" src="../small-large-ASL-2026/assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
-    <img class="footer-overlay" src="../small-large-ASL-2026/assets/footer-numbers/footer-09.png" alt="-3">
+    <img class="title-overlay" src="../small-large-common/assets/title-overlays/title-overlay-2.png" alt="Higher-arity neostability">
+    <img class="footer-overlay" src="../small-large-common/assets/footer-numbers/footer-09.png" alt="-3">
   `;
   // Scrub the wide diagram sideways; idle drift covers it in the original 300s.
   const track = el.querySelector('.neostability-track');
@@ -498,7 +498,7 @@ function createThankSlide() {
   // behind the (black-keyed) text lives in index.thankyou-grid.html.
   const el = document.createElement('section');
   el.className = 'custom-slide thank-slide';
-  el.innerHTML = `<img src="../small-large-ASL-2026/slides/slide-54.png" alt="Thank you">`;
+  el.innerHTML = `<img src="../small-large-common/slides/slide-54.png" alt="Thank you">`;
   return el;
 }
 
@@ -516,11 +516,8 @@ function createDefaultSlide(i, index) {
   }
 
   const n = String(i).padStart(2, '0');
-  const slideSrc = i >= 2 && i <= 5
-    ? `slides/slide-${n}.png`
-    : `../small-large-ASL-2026/slides/slide-${n}.png`;
   const el = document.createElement('img');
-  el.dataset.src = slideSrc;
+  el.dataset.src = `../small-large-common/slides/slide-${n}.png`;
   el.alt = `Slide ${i}`;
   el.loading = 'eager';
   el.decoding = 'async';
