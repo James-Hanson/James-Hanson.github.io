@@ -99,7 +99,7 @@
     >
       <img
         class="main-title title-fallback"
-        src="../assets/title/sway-yaw/reduced-motion.svg"
+        src="../assets/title/sway-yaw-png/reduced-motion.png"
         alt=""
       >
     </div>
@@ -127,8 +127,8 @@
         let displayedFrame = -1;
 
         const frameSource = yawIndex => [
-          "../assets/title/sway-yaw/",
-          `yaw-${String(yawIndex + 1).padStart(2, "0")}.svg`,
+          "../assets/title/sway-yaw-png/",
+          `yaw-${String(yawIndex + 1).padStart(2, "0")}.png`,
         ].join("");
 
         const swayIndex = (elapsed, period, count) => {
@@ -178,7 +178,7 @@
           window.requestAnimationFrame(updateTitleMotion);
         });
       } else {
-        titleFallback.src = "../assets/title/sway-yaw/reduced-motion.svg";
+        titleFallback.src = "../assets/title/sway-yaw-png/reduced-motion.png";
       }
 
       function send(command) {

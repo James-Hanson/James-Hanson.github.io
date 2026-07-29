@@ -1,6 +1,6 @@
 window.DECK_MANIFEST = {
   "title": "Small, Large Cardinals and Neostability Theory — New Forking Festival 2026",
-  "generatedAt": "2026-07-29T17:42:00.452Z",
+  "generatedAt": "2026-07-29T18:03:26.220Z",
   "slides": [
     {
       "id": "title",
@@ -10,7 +10,7 @@ window.DECK_MANIFEST = {
       "steps": [
         {
           "type": "html",
-          "src": "slides/title.html?v=1dedfe3080db",
+          "src": "slides/title.html?v=15db958e6ae3",
           "title": "Title",
           "captureAdvance": false,
           "captureRetreat": false,
@@ -27,7 +27,7 @@ window.DECK_MANIFEST = {
       "steps": [
         {
           "type": "html",
-          "src": "slides/section-higher-arity-neostability-sway.html?v=5cf9031680e1",
+          "src": "slides/section-higher-arity-neostability-sway.html?v=d49a0205e733",
           "title": "Higher-arity neostability",
           "captureAdvance": false,
           "captureRetreat": false,
@@ -78,7 +78,7 @@ window.DECK_MANIFEST = {
       "steps": [
         {
           "type": "html",
-          "src": "slides/section-combinatorics-sway.html?v=da02e1702a61",
+          "src": "slides/section-combinatorics-sway.html?v=2077558477e7",
           "title": "Indiscernibles",
           "captureAdvance": false,
           "captureRetreat": false,
@@ -453,7 +453,7 @@ window.DECK_MANIFEST = {
       "steps": [
         {
           "type": "html",
-          "src": "slides/section-higher-arity-neostability-crossed.html?v=71851fc9f92a",
+          "src": "slides/section-higher-arity-neostability-crossed.html?v=6dcd0d9a4daa",
           "title": "Stability",
           "captureAdvance": false,
           "captureRetreat": false,
@@ -462,7 +462,7 @@ window.DECK_MANIFEST = {
         },
         {
           "type": "html",
-          "src": "slides/section-higher-arity-neostability-crossed.html?v=71851fc9f92a",
+          "src": "slides/section-higher-arity-neostability-crossed.html?v=6dcd0d9a4daa",
           "title": "Stability (i.e. old forking)",
           "captureAdvance": false,
           "embeddedFooter": false,
@@ -578,7 +578,7 @@ window.DECK_MANIFEST = {
       "steps": [
         {
           "type": "html",
-          "src": "slides/section-k-splitting-bowed.html?v=688802e4dff3",
+          "src": "slides/section-k-splitting-bowed.html?v=b95471c2093f",
           "title": "k-splitting",
           "captureAdvance": false,
           "captureRetreat": false,

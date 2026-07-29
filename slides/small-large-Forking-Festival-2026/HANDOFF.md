@@ -147,17 +147,19 @@ without the overlap seam produced by separate glow fields.
 
 The temporary section headings are based on the New Forking Festival ODP.
 `#section-neostability/1`, immediately after the title, uses
-`slides/section-higher-arity-neostability-sway.html`. Its 18 animated SVG
+`slides/section-higher-arity-neostability-sway.html`. Its 18 source SVG
 frames in `assets/section-headings/sway-18/` are genuine LibreOffice renders
 at evenly spaced vertical 3D rotation angles from -2 through 2 degrees. The
-HTML swaps directly between adjacent renders every 255 ms; its full cycle is
-about 8.7 seconds. There is no
+active HTML uses the 1440×1080 indexed-PNG derivatives in
+`assets/section-headings/sway-18-png/`, avoiding the cost of parsing the
+Fontwork paths on slide entry. It swaps directly between adjacent renders
+every 255 ms; its full cycle is about 8.7 seconds. There is no
 opacity crossfade and it does not synthesize the 3D lettering in CSS.
 
 The HTML adds a separate exact sinusoidal vertical translation with a 6.15
 second period and 0.6vh amplitude. The bob remains faster than the rotational
 cycle, and the different periods keep the two motions out of phase.
-Reduced-motion clients use `reduced-motion.svg` and receive
+Reduced-motion clients use `sway-18-png/reduced-motion.png` and receive
 neither motion. After PDF-to-SVG conversion, remove the exporter-generated
 white full-page path from each frame; the larger black background rectangle
 remains, and removing the white path prevents a faint antialiased box at the
@@ -211,10 +213,12 @@ the 25.4 cm by 19.05 cm page. Reduced-motion clients keep the neutral render.
 `#canonical-partition-tree/1`. Its 18 PNG frames in
 `assets/section-headings/combinatorics-sway-18/` are genuine 2880×2160
 LibreOffice renders at the same evenly spaced -2 through 2 degree vertical 3D
-rotation angles as the neostability heading. It reuses the same frame sequence,
-255 ms cadence, vertical bob, preload gate, and reduced-motion behavior via
-`slides/section-heading-sway.js`. Raster frames prevent the title's many
-Fontwork paths from painting visibly in pieces.
+rotation angles as the neostability heading. The active HTML uses the
+1440×1080 indexed-PNG derivatives in
+`assets/section-headings/combinatorics-sway-18-low/`. It reuses the same frame
+sequence, 255 ms cadence, vertical bob, preload gate, and reduced-motion
+behavior via `slides/section-heading-sway.js`. Raster frames prevent the
+title's many Fontwork paths from painting visibly in pieces.
 
 Run `npm run render:combinatorics-sway` to regenerate the frames and the
 reproducible active-talk derivative
@@ -330,10 +334,13 @@ headroom when changing the footer generator.
 - `slides/title.html` is not a flattened screenshot. The main title and author
   are separate linked images; the New Forking Festival text is a responsive
   HTML layer using the shared Jokerman font. Only the main-title image moves.
-  Its animation selects from the genuine LibreOffice renders in
+  Its animation is derived from the genuine LibreOffice renders in
   `assets/title/sway-yaw/`: 36 yaw positions span a subtle two-degree range
-  and cycle over 8.67 seconds. The frames remain decoded in stacked image
-  layers, with no vertical bob, crossfade, or per-frame HTML translation. The
+  and cycle over 8.67 seconds. The active HTML selects the 1080×722 indexed
+  PNG derivatives in `assets/title/sway-yaw-png/`, which avoid parsing all of
+  the SVG Fontwork paths on page load. The frames remain decoded in stacked
+  image layers, with no vertical bob, crossfade, or per-frame HTML
+  translation. The
   OpenOffice custom shape has an explicit rotation center at
   `(0.001 -0.120 -529.167)`: the x/y values come from a neutral front-face
   saturated-pixel centroid measurement, and the z value is the midpoint of the
