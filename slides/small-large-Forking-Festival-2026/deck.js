@@ -33,6 +33,7 @@
   let suppressAdvanceUntilKeyup = false;
   let interactiveFrameReady = false;
   let pendingInteractiveActions = [];
+  const enteredInteractiveFrames = new WeakSet();
   const imageCache = new Map();
 
   function clamp(value, min, max) {
@@ -421,24 +422,7 @@
     ) {
       startMediaEffects();
     } else if (result.element.tagName === "IFRAME" && result.ready) {
-      if (!result.reused) {
-        result.element.contentWindow?.postMessage({ type: "deck-enter" }, "*");
-      }
-      result.element.contentWindow?.postMessage(
-        {
-          type: "deck-state",
-          state: step.htmlState ?? null,
-        },
-        "*",
-      );
-      interactiveFrameReady = true;
-      for (const action of pendingInteractiveActions) {
-        result.element.contentWindow?.postMessage(
-          { type: "deck-control", action },
-          "*",
-        );
-      }
-      pendingInteractiveActions = [];
+      activateInteractiveFrame(result.element);
     }
 
     prefetchNearby();
@@ -515,6 +499,34 @@
       "*",
     );
     return true;
+  }
+
+  function activateInteractiveFrame(frame) {
+    if (
+      frame !== currentMedia
+      || frame?.tagName !== "IFRAME"
+    ) {
+      return;
+    }
+    if (!enteredInteractiveFrames.has(frame)) {
+      enteredInteractiveFrames.add(frame);
+      frame.contentWindow?.postMessage({ type: "deck-enter" }, "*");
+    }
+    frame.contentWindow?.postMessage(
+      {
+        type: "deck-state",
+        state: currentStep().htmlState ?? null,
+      },
+      "*",
+    );
+    interactiveFrameReady = true;
+    for (const action of pendingInteractiveActions) {
+      frame.contentWindow?.postMessage(
+        { type: "deck-control", action },
+        "*",
+      );
+    }
+    pendingInteractiveActions = [];
   }
 
   function prefetchStep(step) {
@@ -617,9 +629,10 @@
       && currentMedia?.tagName === "IFRAME"
       && event.source === currentMedia.contentWindow
     ) {
-      // Child scripts initialize before their images and fonts necessarily
-      // finish loading. render() uses the iframe load as the authoritative
-      // readiness signal, so an early deck-ready must not reset the scene.
+      // A child can be ready before its images and fonts finish loading.
+      // Activate on that signal so slow subresources cannot strand the scene;
+      // the per-frame guard prevents the later load event from resetting it.
+      activateInteractiveFrame(currentMedia);
       return;
     }
     if (event.data?.type !== "deck-command") return;
