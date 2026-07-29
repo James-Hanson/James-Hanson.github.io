@@ -1,0 +1,47 @@
+\begin{frame}
+  \frametitle{Strong witnesses of Lascar strong type}
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[text width=13.5cm,align=center,font=\normalsize] at
+      ($ (current page.center) + (0,2.95) $)
+      {Fix $A$ and ${\color{magenta}b}$ and suppose there is a
+      {\color{cyan}total bu-Morley sequence}
+      $I\ni {\color{magenta}b}$. For any ${\color{magenta}b'}$ with
+      ${\color{magenta}b'}\equiv^{\mathrm L}_A
+      {\color{magenta}b}$, we have the configuration};
+
+    \begin{scope}[
+      shift={($ (current page.center) + (-3.25,1.45) $)},
+      xscale=0.9,
+      yscale=0.75,
+      every path/.style={draw=white,line width=0.65pt},
+      every node/.style={text=white}
+    ]
+      \draw (0,0) node[left]{$I_0$}
+        -- ++(1.5,0)
+        node[above,text=magenta]{$b$}
+        node[circle,fill=magenta,draw=magenta,inner sep=1.5pt]{}
+        -- ++(1.5,0);
+      \draw (3.5,-0.5) -- ++(3,0) node[right]{$J_1$};
+      \draw (0,-1) node[left]{$I_2$} -- ++(3,0);
+      \draw (3.5,-1.5) -- ++(3,0) node[right]{$J_3$};
+      \draw (0,-2) node[left]{$I_4$} -- ++(3,0);
+      \node[circle,fill=white,draw=white,inner sep=1.1pt] at (3.25,-2.25) {};
+      \node[circle,fill=white,draw=white,inner sep=1.1pt] at (3.25,-2.5) {};
+      \node[circle,fill=white,draw=white,inner sep=1.1pt] at (3.25,-2.75) {};
+      \draw (3.5,-3) -- ++(3,0) node[right]{$J_{n-1}$};
+      \draw (0,-3.5) node[left]{$I_n$}
+        -- ++(1.5,0)
+        node[below,text=magenta]{$b'$}
+        node[circle,fill=magenta,draw=magenta,inner sep=1.5pt]{}
+        -- ++(1.5,0);
+    \end{scope}
+
+    \node[align=center,font=\normalsize] at
+      ($ (current page.center) + (0,-3.05) $)
+      {with $I_0=I$, ${\color{magenta}b'}\in I_n$, and\\
+      $I_i+J_{i+1}$ and
+      $I_{i+2}+J_{i+1}$ $A$-indiscernible for all $i$.};
+
+  \end{tikzpicture}
+\end{frame}

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Higher-arity neostability</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .collage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .clip {
+      position: absolute;
+      min-width: 0;
+      min-height: 0;
+      margin: 0;
+      background: transparent;
+    }
+
+    .clip img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .slide-title {
+      position: absolute;
+      z-index: 20;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      clip-path: inset(0 0 84% 0);
+      pointer-events: none;
+    }
+
+    .shelah {
+      z-index: 2;
+      top: 13%;
+      left: 1%;
+      width: 50%;
+      height: 17%;
+      transform: scale(1.1);
+      transform-origin: top left;
+    }
+
+    .dependence {
+      z-index: 4;
+      top: 18%;
+      right: 1%;
+      width: 50%;
+      height: 16%;
+      transform: scale(1.1);
+      transform-origin: top right;
+    }
+
+    .vc {
+      z-index: 3;
+      top: 35%;
+      left: 1%;
+      width: 50%;
+      height: 17%;
+    }
+
+    .terry-wolf {
+      z-index: 5;
+      top: 40%;
+      right: 1%;
+      width: 50%;
+      height: 17%;
+      transform: scale(1.1);
+      transform-origin: top right;
+    }
+
+    .fop {
+      z-index: 4;
+      top: 57%;
+      left: 1%;
+      width: 50%;
+      height: 17%;
+    }
+
+    .treeless {
+      z-index: 3;
+      top: 62%;
+      right: 1%;
+      width: 50%;
+      height: 17%;
+      transform: scale(1.1);
+      transform-origin: top right;
+    }
+
+    .cless {
+      z-index: 5;
+      bottom: 3%;
+      left: 1%;
+      width: 39%;
+      height: 16%;
+      transform: scale(1.1);
+      transform-origin: bottom left;
+    }
+
+    .slice-wise {
+      z-index: 2;
+      right: 1%;
+      bottom: 0;
+      width: 52%;
+      height: 18%;
+    }
+  </style>
+</head>
+<body>
+  <main class="collage" aria-label="Papers in higher-arity neostability">
+    <img
+      class="slide-title"
+      src="../assets/title-overlays/title-overlay-2.png"
+      alt="Higher-arity neostability"
+    >
+    <figure class="clip shelah">
+      <img
+        src="../assets/neostability-collage/shelah-2-dependent.png"
+        alt="Definable Groups for Dependent and 2-Dependent Theories, Saharon Shelah"
+      >
+    </figure>
+    <figure class="clip dependence">
+      <img
+        src="../assets/neostability-collage/on-n-dependence.png"
+        alt="On n-dependence, Artem Chernikov, Daniel Palacin, and Kota Takeuchi"
+      >
+    </figure>
+    <figure class="clip vc">
+      <img
+        src="../assets/neostability-collage/higher-vc.png"
+        alt="Hypergraph Regularity and Higher Arity VC-Dimension, Artem Chernikov and Henry Towsner"
+      >
+    </figure>
+    <figure class="clip terry-wolf">
+      <img
+        src="../assets/neostability-collage/terry-wolf-arithmetic.png"
+        alt="Higher-Order Generalizations of Stability and Arithmetic Regularity, Caroline Terry and Julia Wolf"
+      >
+    </figure>
+    <figure class="clip fop">
+      <img
+        src="../assets/neostability-collage/fop-k.png"
+        alt="Higher Arity Stability and the Functional Order Property, Abd Aldaim, Conant, and Terry"
+      >
+    </figure>
+    <figure class="clip treeless">
+      <img
+        src="../assets/neostability-collage/treeless.png"
+        alt="Generic Stability Independence and Treeless Theories, Itay Kaplan, Nicholas Ramsey, and Pierre Simon"
+      >
+    </figure>
+    <figure class="clip cless">
+      <img
+        src="../assets/neostability-collage/c-less.png"
+        alt="Towards Higher Classification Theory, Artem Chernikov"
+      >
+    </figure>
+    <figure class="clip slice-wise">
+      <img
+        src="../assets/neostability-collage/slice-wise.png"
+        alt="Perfect Stable Regularity Lemma and Slice-Wise Stable Hypergraphs, Artem Chernikov and Henry Towsner"
+      >
+    </figure>
+  </main>
+
+  <script>
+    (() => {
+      const send = command => {
+        parent.postMessage({ type: "deck-command", command }, "*");
+      };
+
+      addEventListener("keydown", event => {
+        const advance = event.key === "ArrowRight"
+          || event.key === "PageDown"
+          || (event.key === " " && !event.shiftKey);
+        const retreat = event.key === "ArrowLeft"
+          || event.key === "PageUp"
+          || (event.key === " " && event.shiftKey);
+        if (advance || retreat) event.preventDefault();
+        if (advance) send("advance");
+        else if (retreat) send("retreat");
+        else if (event.key.toLowerCase() === "f") send("fullscreen");
+      });
+
+      addEventListener("pointerup", event => {
+        if (event.button === 0) send("advance");
+      });
+    })();
+  </script>
+</body>
+</html>

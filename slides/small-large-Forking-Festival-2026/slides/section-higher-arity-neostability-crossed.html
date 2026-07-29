@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stability</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+    }
+
+    .frame,
+    .strikes {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .frame {
+      object-fit: contain;
+    }
+
+    .strikes {
+      pointer-events: none;
+    }
+
+    .strike-shadow {
+      stroke: #091833;
+      stroke-width: 11;
+      stroke-linecap: round;
+      transform: translate(3px, 5px);
+    }
+
+    .strike-face {
+      stroke: #ffffff;
+      stroke-width: 6;
+      stroke-linecap: round;
+    }
+
+    .old-forking-caption {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      bottom: 5.5%;
+      display: none;
+      width: min(31vw, 390px);
+      height: auto;
+      transform: translateX(-50%);
+    }
+
+    body.show-old-forking .old-forking-caption {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="scene" class="scene">
+    <img
+      id="frame"
+      class="frame"
+      src="../assets/section-headings/sway-18/reduced-motion.svg"
+      alt="Higher-arity and neo crossed out, leaving stability"
+    >
+    <svg
+      class="strikes"
+      viewBox="0 0 720 540"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <line class="strike-shadow" x1="52" y1="242" x2="706" y2="166"></line>
+      <line class="strike-face" x1="52" y1="242" x2="706" y2="166"></line>
+      <line class="strike-shadow" x1="55" y1="391" x2="252" y2="360"></line>
+      <line class="strike-face" x1="55" y1="391" x2="252" y2="360"></line>
+    </svg>
+  </div>
+  <img
+    class="old-forking-caption"
+    src="../assets/section-headings/old-forking-caption.svg"
+    alt="(i.e. old forking)"
+  >
+
+  <script>
+    if (new URLSearchParams(location.search).has("old-forking")) {
+      document.body.classList.add("show-old-forking");
+    }
+    addEventListener("message", event => {
+      if (event.data?.type !== "deck-state") return;
+      document.body.classList.toggle(
+        "show-old-forking",
+        event.data.state?.oldForking === true,
+      );
+    });
+  </script>
+  <script src="section-heading-sway.js"></script>
+</body>
+</html>

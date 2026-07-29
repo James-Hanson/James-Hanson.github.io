@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Small, Large Cardinals and Neostability Theory</title>
+  <link
+    rel="preload"
+    href="../assets/fonts/Jokerman.otf"
+    as="font"
+    type="font/otf"
+    crossorigin
+  >
+  <style>
+    @font-face {
+      font-family: "Jokerman";
+      src: url("../assets/fonts/Jokerman.otf") format("opentype");
+      font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+    img {
+      position: absolute;
+      display: block;
+      height: auto;
+      max-width: none;
+    }
+    .title-motion {
+      position: absolute;
+      z-index: 0;
+      left: 8%;
+      top: 12.5%;
+      width: 99.5%;
+      aspect-ratio: 864 / 577.729134;
+    }
+    .main-title {
+      inset: 0;
+      width: 100%;
+      clip-path: inset(2px);
+    }
+    .title-frame {
+      opacity: 0;
+      will-change: opacity;
+    }
+    .title-frame.active {
+      opacity: 1;
+    }
+    .author {
+      z-index: 2;
+      left: 3.62%;
+      top: 78.07%;
+      width: 47.32%;
+    }
+    .event {
+      position: absolute;
+      z-index: 2;
+      top: 3.4%;
+      right: 4.5%;
+      width: 75%;
+      color: #e000d5;
+      font-family: "Jokerman", fantasy;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .event span {
+      position: absolute;
+      right: 0;
+      display: block;
+      line-height: 1;
+    }
+    .event span:first-child {
+      top: 0;
+      font-size: 7.2vh;
+    }
+    .event span:last-child {
+      top: 10.5vh;
+      font-size: 6vh;
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <div
+      class="title-motion"
+      role="img"
+      aria-label="Small, large cardinals and neostability theory"
+    >
+      <img
+        class="main-title title-fallback"
+        src="../assets/title/sway-yaw/reduced-motion.svg"
+        alt=""
+      >
+    </div>
+    <div class="event" aria-label="New Forking Festival 2026, University of Notre Dame">
+      <span>New Forking Festival 2026</span>
+      <span>University of Notre Dame</span>
+    </div>
+    <img
+      class="author"
+      src="../assets/title/author.png"
+      alt="James E. Hanson, Iowa State University"
+    >
+  </main>
+  <script>
+    (() => {
+      const titleMotion = document.querySelector(".title-motion");
+      const titleFallback = document.querySelector(".title-fallback");
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!reducedMotion) {
+        const yawCount = 36;
+        const yawPeriodMs = 8670;
+        let displayedFrame = -1;
+
+        const frameSource = yawIndex => [
+          "../assets/title/sway-yaw/",
+          `yaw-${String(yawIndex + 1).padStart(2, "0")}.svg`,
+        ].join("");
+
+        const swayIndex = (elapsed, period, count) => {
+          const phase = (2 * Math.PI * elapsed) / period;
+          const position = (1 - Math.cos(phase)) / 2;
+          return Math.round(position * (count - 1));
+        };
+
+        const frameAt = elapsed =>
+          swayIndex(elapsed, yawPeriodMs, yawCount);
+
+        const createFrame = source => {
+          const image = new Image();
+          image.decoding = "async";
+          image.className = "main-title title-frame";
+          image.alt = "";
+          const ready = new Promise(resolve => {
+            image.onload = () => {
+              image.decode().catch(() => undefined).then(() => resolve(image));
+            };
+            image.onerror = () => resolve(image);
+          });
+          image.src = source;
+          titleMotion.append(image);
+          return ready;
+        };
+
+        const yawSources = Array.from(
+          { length: yawCount },
+          (_, yawIndex) => frameSource(yawIndex),
+        );
+        Promise.all(yawSources.map(createFrame)).then(frames => {
+          titleFallback.remove();
+          const startedAt = performance.now();
+          const updateTitleMotion = now => {
+            const elapsed = now - startedAt;
+            const nextFrame = frameAt(elapsed);
+            if (displayedFrame !== nextFrame) {
+              if (displayedFrame >= 0) {
+                frames[displayedFrame].classList.remove("active");
+              }
+              frames[nextFrame].classList.add("active");
+              displayedFrame = nextFrame;
+            }
+            window.requestAnimationFrame(updateTitleMotion);
+          };
+          window.requestAnimationFrame(updateTitleMotion);
+        });
+      } else {
+        titleFallback.src = "../assets/title/sway-yaw/reduced-motion.svg";
+      }
+
+      function send(command) {
+        parent.postMessage({ type: "deck-command", command }, "*");
+      }
+
+      addEventListener("keydown", event => {
+        const advance = event.key === "ArrowRight"
+          || event.key === "PageDown"
+          || (event.key === " " && !event.shiftKey);
+        const retreat = event.key === "ArrowLeft"
+          || event.key === "PageUp"
+          || (event.key === " " && event.shiftKey);
+        if (advance || retreat) event.preventDefault();
+        if (advance) send("advance");
+        else if (retreat) send("retreat");
+        else if (event.key.toLowerCase() === "f") send("fullscreen");
+      });
+
+      let touchX = 0;
+      let touchY = 0;
+      addEventListener("touchstart", event => {
+        touchX = event.changedTouches[0].clientX;
+        touchY = event.changedTouches[0].clientY;
+      }, { passive: true });
+      addEventListener("touchend", event => {
+        const deltaX = event.changedTouches[0].clientX - touchX;
+        const deltaY = event.changedTouches[0].clientY - touchY;
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          send(deltaX < 0 ? "advance" : "retreat");
+        }
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

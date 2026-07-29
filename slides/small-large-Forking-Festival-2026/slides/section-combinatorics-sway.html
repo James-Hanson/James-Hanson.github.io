@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indiscernibles</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+    }
+
+    .frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div id="scene" class="scene">
+    <img
+      id="frame"
+      class="frame"
+      src="../assets/section-headings/combinatorics-sway-18/reduced-motion.png"
+      data-sway-directory="../assets/section-headings/combinatorics-sway-18"
+      data-sway-extension="png"
+      alt="Indiscernibles"
+    >
+  </div>
+
+  <script src="section-heading-sway.js"></script>
+</body>
+</html>

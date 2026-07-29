@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>k-splitting</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .scene img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      clip-path: inset(1px);
+      transform-origin: 51.575% 60.500%;
+      animation: circle-center-sway 11.2s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes circle-center-sway {
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(0.95deg);
+      }
+
+      50% {
+        transform: rotate(0deg);
+      }
+
+      75% {
+        transform: rotate(-0.95deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scene img {
+        animation: none;
+      }
+    }
+
+    .scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 2px solid #000;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="scene" aria-label="k-splitting section">
+    <img
+      src="../assets/section-headings/k-splitting-bowed.png"
+      alt="k-splitting"
+    >
+  </main>
+
+  <script>
+    (() => {
+      const send = command => {
+        parent.postMessage({ type: "deck-command", command }, "*");
+      };
+
+      addEventListener("keydown", event => {
+        const advance = event.key === "ArrowRight"
+          || event.key === "PageDown"
+          || (event.key === " " && !event.shiftKey);
+        const retreat = event.key === "ArrowLeft"
+          || event.key === "PageUp"
+          || (event.key === " " && event.shiftKey);
+        if (advance || retreat) event.preventDefault();
+        if (advance) send("advance");
+        else if (retreat) send("retreat");
+        else if (event.key.toLowerCase() === "f") send("fullscreen");
+      });
+
+      addEventListener("pointerup", event => {
+        if (event.button === 0) send("advance");
+      });
+    })();
+  </script>
+</body>
+</html>

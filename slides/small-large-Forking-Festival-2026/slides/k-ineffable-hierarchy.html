@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Large-cardinal hierarchy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-family: "Latin Modern Sans", "CMU Sans Serif", Arial, sans-serif;
+    }
+
+    #viewport {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #world {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
+    #frame-mask {
+      position: absolute;
+      z-index: 10;
+      border: 1px solid #000;
+      pointer-events: none;
+    }
+
+    #initial-slide {
+      position: absolute;
+      z-index: 0;
+      left: -600px;
+      top: 0;
+      width: 1200px;
+      height: 900px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #initial-slide > .slide-image {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #pigeon-head-glow {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      width: 38000px;
+      height: 14000px;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(
+        ellipse at center,
+        rgb(237 0 200 / 40%) 0%,
+        rgb(237 0 200 / 21%) 43%,
+        rgb(237 0 200 / 0%) 76%
+      );
+      pointer-events: none;
+    }
+
+    .zoom-pigeon.right {
+      left: 29000px;
+    }
+
+    .zoom-pigeon.left {
+      left: -28160px;
+    }
+
+    .zoom-pigeon {
+      position: absolute;
+      z-index: 1;
+      display: block;
+      width: 51000px;
+      height: auto;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .zoom-pigeon.left {
+      transform: translate(-50%, -50%) scaleX(-1);
+    }
+
+    #embedded-footer {
+      position: absolute;
+      z-index: 4;
+      left: 587px;
+      top: 872px;
+      display: none;
+      width: auto;
+      height: 17px;
+      transform: translateX(-100%);
+    }
+
+    #hierarchy {
+      position: absolute;
+      z-index: 3;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #hierarchy-edges {
+      position: absolute;
+      z-index: 0;
+      left: 0;
+      top: 0;
+      width: 1px;
+      height: 1px;
+      overflow: visible;
+    }
+
+    .hierarchy-edge {
+      vector-effect: non-scaling-stroke;
+      stroke: rgb(255 255 255 / 72%);
+      stroke-linecap: round;
+    }
+
+    .hierarchy-edge.schematic {
+      stroke-dasharray: 0.22em 0.18em;
+    }
+
+    .rung {
+      position: absolute;
+      z-index: 1;
+      color: #fff;
+      padding: 0.11em 0.22em;
+      font-family: inherit;
+      font-weight: 400;
+      line-height: 1;
+      text-align: center;
+      text-shadow:
+        0 0 0.12em #000,
+        0 0 0.28em #000,
+        0 0 0.48em #000;
+      white-space: nowrap;
+      transform: translate(-50%, -50%);
+      font-size: var(--size);
+      letter-spacing: 0;
+    }
+
+    .rung.math-rung img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: auto;
+      height: 1em;
+      transform: translate(-50%, -50%);
+    }
+
+  </style>
+</head>
+<body>
+  <main id="viewport" aria-label="Zooming large-cardinal hierarchy">
+    <div id="world">
+      <section id="initial-slide">
+        <img
+          class="slide-image"
+          src="../generated/slides/k-ineffable/step-04.svg"
+          alt="Higher-arity Fodor's lemma"
+        >
+      </section>
+      <div id="pigeon-head-glow" aria-hidden="true"></div>
+      <img
+        class="zoom-pigeon left"
+        src="../assets/pigeon-clipart-cutout.png"
+        alt=""
+      >
+      <img
+        class="zoom-pigeon right"
+        src="../assets/pigeon-clipart-cutout.png"
+        alt=""
+      >
+      <div id="hierarchy" aria-hidden="true">
+        <svg id="hierarchy-edges"></svg>
+      </div>
+      <img id="embedded-footer" alt="">
+    </div>
+    <div id="frame-mask" aria-hidden="true"></div>
+  </main>
+
+  <script src="scene-controller.js"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const viewport = document.getElementById("viewport");
+      const world = document.getElementById("world");
+      const frameMask = document.getElementById("frame-mask");
+      const embeddedFooter = document.getElementById("embedded-footer");
+      const hierarchy = document.getElementById("hierarchy");
+      const hierarchyEdges = document.getElementById("hierarchy-edges");
+      const pigeonHeadGlow = document.getElementById("pigeon-head-glow");
+      const pigeons = [...document.querySelectorAll(".zoom-pigeon")];
+      const parameters = new URLSearchParams(location.search);
+      const footerPath = parameters.get("footer");
+      const anchorX = 420;
+      const anchorY = 450;
+      const baseFontSize = 40;
+      const baseGap = 135;
+      const strongerGapRatio = 1.18;
+      const weakerGap = 88;
+      const finalTopMargin = 40;
+      const staticMode = parameters.has("static");
+      const previewMode = parameters.has("preview");
+      const preview = Number(parameters.get("preview"));
+
+      function positionAt(level) {
+        let position = anchorY;
+        if (level < 0) return position - level * weakerGap;
+        for (let step = 0; step < level; step += 1) {
+          position -= baseGap * strongerGapRatio ** (step + 0.5);
+        }
+        return position;
+      }
+
+      const highestLevel = 18;
+      const preliminaryScale = (900 - finalTopMargin) / (
+        900 - positionAt(highestLevel)
+      );
+      const fontRatio = (1 / preliminaryScale) ** (1 / highestLevel);
+
+      function sizeAt(level) {
+        if (level < 0) return baseFontSize;
+        return baseFontSize * fontRatio ** level;
+      }
+
+      function xAt(node) {
+        if (!node.lane) return anchorX;
+        const spread = Math.max(155, sizeAt(node.level) * 3.4);
+        return anchorX + node.lane * spread;
+      }
+
+      const formula = (image, ariaLabel) => ({ image, ariaLabel });
+      const nodes = [
+        { id: "anchor", level: 0, hidden: true },
+
+        { id: "inaccessible", label: "inaccessible", level: -5 },
+        { id: "mahalo", label: "Mahlo", level: -4 },
+        { id: "weakly-compact", label: "weakly compact", level: -3 },
+        { id: "ineffable", label: "ineffable", level: -1.75 },
+
+        {
+          id: "completely-ineffable",
+          label: "completely ineffable",
+          level: 1,
+        },
+        { id: "erdos", label: "Erdős", level: 2 },
+        {
+          id: "partition-omega-one",
+          label: formula(
+            "../assets/k-ineffable-hierarchy/partition-omega-one.svg",
+            "kappa arrows omega one subscript two superscript less than omega",
+          ),
+          level: 3,
+          lane: -1.25,
+        },
+        { id: "jonsson", label: "Jónsson", level: 3, lane: 1.25 },
+        { id: "rowbottom", label: "Rowbottom", level: 4, lane: 1.25 },
+        { id: "ramsey", label: "Ramsey", level: 5 },
+        {
+          id: "strongly-ramsey",
+          label: "strongly Ramsey",
+          level: 6,
+        },
+        { id: "measurable", label: "measurable", level: 7 },
+        { id: "strong", label: "strong", level: 8 },
+        { id: "woodin", label: "Woodin", level: 9 },
+        {
+          id: "superstrong",
+          label: "superstrong",
+          level: 10,
+          lane: -1.15,
+        },
+        {
+          id: "strongly-compact",
+          label: "strongly compact",
+          level: 10,
+          lane: 1.15,
+        },
+        { id: "supercompact", label: "supercompact", level: 11 },
+        {
+          id: "extendible",
+          label: "extendible",
+          level: 12,
+        },
+        { id: "almost-huge", label: "almost huge", level: 13 },
+        { id: "huge", label: "huge", level: 14 },
+        { id: "superhuge", label: "superhuge", level: 15 },
+        { id: "n-huge", label: "n-huge", level: 16 },
+        {
+          id: "rank-into-rank",
+          label: "I0-I3 rank-into-rank",
+          level: 17,
+        },
+        { id: "zero-equals-one", label: "0=1", level: 18, sizeFactor: 1.3 },
+      ].map(node => ({
+        ...node,
+        x: xAt(node),
+        y: positionAt(node.level),
+      }));
+      const nodesById = new Map(nodes.map(node => [node.id, node]));
+      const edges = [
+        ["inaccessible", "mahalo"],
+        ["mahalo", "weakly-compact"],
+        ["weakly-compact", "ineffable"],
+        ["ineffable", "anchor"],
+        ["anchor", "completely-ineffable"],
+        ["completely-ineffable", "erdos"],
+        ["erdos", "partition-omega-one"],
+        ["partition-omega-one", "ramsey"],
+        ["erdos", "jonsson"],
+        ["jonsson", "rowbottom"],
+        ["rowbottom", "ramsey"],
+        ["ramsey", "strongly-ramsey"],
+        ["strongly-ramsey", "measurable"],
+        ["measurable", "strong"],
+        ["strong", "woodin"],
+        ["woodin", "superstrong"],
+        ["woodin", "strongly-compact"],
+        ["superstrong", "supercompact"],
+        ["strongly-compact", "supercompact"],
+        ["supercompact", "extendible"],
+        ["extendible", "almost-huge", "schematic"],
+        ["almost-huge", "huge"],
+        ["huge", "superhuge"],
+        ["superhuge", "n-huge"],
+        ["n-huge", "rank-into-rank"],
+        ["rank-into-rank", "zero-equals-one"],
+      ];
+
+      function displaySizeAt(node) {
+        return sizeAt(node.level) * (node.sizeFactor ?? 1);
+      }
+
+      function addRung(node) {
+        if (node.hidden) return;
+        const rung = document.createElement("div");
+        rung.className = "rung";
+        if (typeof node.label === "string") {
+          rung.textContent = node.label;
+        } else {
+          rung.classList.add("math-rung");
+          const image = document.createElement("img");
+          image.src = node.label.image;
+          image.alt = node.label.ariaLabel;
+          rung.append(image);
+        }
+        rung.style.left = `${node.x}px`;
+        rung.style.top = `${node.y}px`;
+        rung.style.setProperty("--size", `${displaySizeAt(node)}px`);
+        hierarchy.append(rung);
+      }
+
+      function addEdge(lowerId, upperId, kind = "") {
+        const lower = nodesById.get(lowerId);
+        const upper = nodesById.get(upperId);
+        const edge = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line",
+        );
+        edge.classList.add("hierarchy-edge");
+        if (kind) edge.classList.add(kind);
+        edge.setAttribute("x1", lower.x);
+        edge.setAttribute("y1", lower.y);
+        edge.setAttribute("x2", upper.x);
+        edge.setAttribute("y2", upper.y);
+        edge.setAttribute(
+          "stroke-width",
+          Math.max(1.5, displaySizeAt(upper) * 0.045),
+        );
+        hierarchyEdges.append(edge);
+      }
+
+      edges.forEach(edge => addEdge(...edge));
+      nodes.forEach(addRung);
+
+      const topNode = nodesById.get("zero-equals-one");
+      const topExtent = topNode.y - displaySizeAt(topNode) * 0.65;
+      const finalScale = (900 - finalTopMargin) / (900 - topExtent);
+      const pigeonWidth = 51000;
+      const pigeonHeight = pigeonWidth * 2127 / 2367;
+      const pigeonCenterY = topNode.y + pigeonHeight * 0.435;
+      pigeons.forEach(pigeon => {
+        pigeon.style.top = `${pigeonCenterY}px`;
+      });
+      pigeonHeadGlow.style.top = `${topNode.y + pigeonHeight * 0.02}px`;
+
+      if (footerPath) {
+        embeddedFooter.src = new URL(`../${footerPath}`, location.href);
+        embeddedFooter.style.display = "block";
+      }
+
+      const start = {
+        x: 0,
+        scale: 1,
+      };
+      const end = {
+        x: 0,
+        scale: finalScale,
+      };
+
+      function clamp(value, minimum, maximum) {
+        return Math.min(maximum, Math.max(minimum, value));
+      }
+
+      function smoothstep(value) {
+        const amount = clamp(value, 0, 1);
+        return amount * amount * (3 - 2 * amount);
+      }
+
+      function render(progress) {
+        const amount = smoothstep(progress);
+        const camera = {
+          x: start.x + (end.x - start.x) * amount,
+          scale: Math.exp(
+            Math.log(start.scale)
+              + (Math.log(end.scale) - Math.log(start.scale)) * amount,
+          ),
+        };
+        const fit = Math.min(
+          viewport.clientWidth / 1200,
+          viewport.clientHeight / 900,
+        );
+        const scale = camera.scale * fit;
+        camera.y = 900 - 450 / camera.scale;
+
+        world.style.transform = [
+          `translate(${-camera.x * scale}px, ${-camera.y * scale}px)`,
+          `scale(${scale})`,
+        ].join(" ");
+        frameMask.style.left = `${
+          viewport.clientWidth / 2 + (-600 - camera.x) * scale
+        }px`;
+        frameMask.style.top = `${
+          viewport.clientHeight / 2 - camera.y * scale
+        }px`;
+        frameMask.style.width = `${1200 * scale}px`;
+        frameMask.style.height = `${900 * scale}px`;
+
+        hierarchy.style.opacity = 1;
+        const pigeonOpacity = clamp((progress - 0.34) / 0.36, 0, 1);
+        pigeonHeadGlow.style.opacity = pigeonOpacity;
+        pigeons.forEach(pigeon => {
+          pigeon.style.opacity = pigeonOpacity;
+        });
+      }
+
+      const controller = createDeckScrubber({
+        baseDuration: 2.42,
+        hangAtEnd: true,
+        rewindOnLeft: true,
+        triggerOnAdvance: staticMode,
+        render,
+      });
+      if (previewMode && Number.isFinite(preview)) {
+        controller.stop();
+        controller.state.progress = clamp(preview, 0, 1);
+        render(controller.state.progress);
+      } else if (staticMode) {
+        controller.stop();
+        controller.state.progress = 0;
+        render(0);
+      }
+
+      addEventListener("resize", () => render(controller.state.progress));
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "new-forking-festival-2026-html-slides",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:force": "node scripts/build.mjs --force",
+    "render:combinatorics-sway": "node scripts/render-combinatorics-sway.mjs",
+    "render:hierarchy-formulas": "node scripts/render-hierarchy-formulas.mjs",
+    "render:section-stability-caption": "node scripts/render-section-stability-caption.mjs",
+    "render:the-zoo-title": "node scripts/render-the-zoo-title.mjs",
+    "render:title-sway": "node scripts/render-title-sway.mjs --yaw-only",
+    "vendor:mathjax": "node scripts/vendor-mathjax.mjs",
+    "test": "node scripts/validate.mjs && node scripts/test-scene-controller.mjs",
+    "serve": "python3 -m http.server 8765 --bind 127.0.0.1 --directory ../.."
+  },
+  "devDependencies": {
+    "mathjax": "^4.1.3"
+  }
+}

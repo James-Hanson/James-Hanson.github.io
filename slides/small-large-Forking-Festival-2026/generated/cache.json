@@ -1,0 +1,138 @@
+{
+  "asset:generated/assets/higher-arity-stability-diagram.svg": "5aa0977341346e7d5e9550ca751db862fc918d3c7403eb9df15e4a38c2dffa52",
+  "footers": {
+    "digest": "28c2f9c5f214a475a3954721c74e975dee6586a14f53dc685361d7f12ee472be",
+    "outputs": [
+      "generated/footers/minus-16.svg",
+      "generated/footers/minus-15.svg",
+      "generated/footers/minus-14.svg",
+      "generated/footers/minus-13.svg",
+      "generated/footers/minus-12.svg",
+      "generated/footers/minus-11.svg",
+      "generated/footers/minus-10.svg",
+      "generated/footers/minus-9.svg",
+      "generated/footers/minus-8.svg",
+      "generated/footers/minus-7.svg",
+      "generated/footers/minus-6.svg",
+      "generated/footers/minus-5.svg",
+      "generated/footers/minus-4.svg",
+      "generated/footers/minus-3.svg",
+      "generated/footers/minus-2.svg",
+      "generated/footers/minus-1.svg",
+      "generated/footers/zero.svg"
+    ]
+  },
+  "slide:indiscernibles": {
+    "digest": "010d38499a52014414b46001efe10291f5c7226797566cb91d384c6b5ee34281",
+    "outputs": [
+      "generated/slides/indiscernibles/step-01.svg",
+      "generated/slides/indiscernibles/step-02.svg",
+      "generated/slides/indiscernibles/step-03.svg",
+      "generated/slides/indiscernibles/step-04.svg",
+      "generated/slides/indiscernibles/step-05.svg",
+      "generated/slides/indiscernibles/step-06.svg"
+    ]
+  },
+  "slide:what-can-you-do": {
+    "digest": "fd9b64edc9ab5b6ba450a859496690331d40ea4da0fc089572e39ee938f30293",
+    "outputs": [
+      "generated/slides/what-can-you-do/step-01.svg",
+      "generated/slides/what-can-you-do/step-02.svg",
+      "generated/slides/what-can-you-do/step-03.svg",
+      "generated/slides/what-can-you-do/step-04.svg",
+      "generated/slides/what-can-you-do/step-05.svg"
+    ]
+  },
+  "slide:splitting": {
+    "digest": "ffd4c28b76ac0a6fe6f4e6442271358af3ae100ac31962e3624c155562b98e60",
+    "outputs": [
+      "generated/slides/splitting/step-01.svg",
+      "generated/slides/splitting/step-02.svg"
+    ]
+  },
+  "slide:stability": {
+    "digest": "1130dabd789cbe9e4d31659bcd6af048258c15933d09c96ec9ba95da8a23ba7f",
+    "outputs": [
+      "generated/slides/stability/step-01.svg",
+      "generated/slides/stability/step-02.svg",
+      "generated/slides/stability/step-03.svg",
+      "generated/slides/stability/step-04.svg"
+    ]
+  },
+  "slide:k-ineffable": {
+    "digest": "5d6e105145e415b212873ab772a74baf4ef1a4557ef07960326f89a403777546",
+    "outputs": [
+      "generated/slides/k-ineffable/step-01.svg",
+      "generated/slides/k-ineffable/step-02.svg",
+      "generated/slides/k-ineffable/step-03.svg",
+      "generated/slides/k-ineffable/step-04.svg"
+    ]
+  },
+  "slide:k-splitting": {
+    "digest": "84650382396324cd067df7a545099c0064b5f11f8a221de2cb3a16e74ce1e8f5",
+    "outputs": [
+      "generated/slides/k-splitting/step-01.svg"
+    ]
+  },
+  "slide:k-end-homogeneity": {
+    "digest": "bdee84229427405ff5cbd4379aaf8be65c2170ac827c9b61e15f476e38fd1bad",
+    "outputs": [
+      "generated/slides/k-end-homogeneity/step-01.svg"
+    ]
+  },
+  "slide:bounded-k-splitting": {
+    "digest": "28e2e80fc2f7929fb950c6e1c77531938824b05351a2b3f5cfbba1bacb243032",
+    "outputs": [
+      "generated/slides/bounded-k-splitting/step-01.svg",
+      "generated/slides/bounded-k-splitting/step-02.svg"
+    ]
+  },
+  "slide:thank-you": {
+    "digest": "19f2286ec16a511d4ddff175e14e87aa09779a5576d3e1546eab0ee6513677aa",
+    "outputs": [
+      "generated/slides/thank-you/step-01.svg"
+    ]
+  },
+  "asset:generated/media/k-splitting-frames": {
+    "digest": "ee206576f169dd122cbbf5f5789bae1b0f2291b7eef88406178c5187098eb4e8",
+    "outputs": [
+      "generated/media/k-splitting-frames/frame-01.png",
+      "generated/media/k-splitting-frames/frame-02.png",
+      "generated/media/k-splitting-frames/frame-03.png",
+      "generated/media/k-splitting-frames/frame-04.png"
+    ]
+  },
+  "asset:generated/overlays/canonical-partition-tree-cut-overlay.svg": "892b08e0cd54fe5df5cf02041b36436f00cbc8fc58391ed0c64d03fa40a95277",
+  "asset:generated/overlays/canonical-partition-tree-two-types-overlay.svg": "23599c016b41e0bbce3c74148689fb53722b3a7fcf0e1ed4d5af97c31a897bb3",
+  "slide:application": {
+    "digest": "6d2192a71b461f21f58082eefd5430122c64af952dd2d0c3692fe6ced0263dd6",
+    "outputs": [
+      "generated/slides/application/step-01.svg"
+    ]
+  },
+  "slide:nip-not-bounded-k-splitting": {
+    "digest": "f0b91e67bd96df7625a01cc8e7055f5c46272018f47f90669dedd95c0fc44171",
+    "outputs": [
+      "generated/slides/nip-not-bounded-k-splitting/step-01.svg"
+    ]
+  },
+  "slide:bounded-k-splitting-definition": {
+    "digest": "06bc986b78c88b94d4d8c8efcb263bb257677435c0326cb55a577b521e3f8a85",
+    "outputs": [
+      "generated/slides/bounded-k-splitting-definition/step-01.svg"
+    ]
+  },
+  "slide:strong-witnesses-lascar": {
+    "digest": "a1d980490db3ae690288f3bd3d04c0570aeea19bc90af9254f451cc7d5d58c4c",
+    "outputs": [
+      "generated/slides/strong-witnesses-lascar/step-01.svg"
+    ]
+  },
+  "slide:indiscernible-lemma": {
+    "digest": "8c12312cc0a4c860c7b5797b5f28d350f787730264b709b009ed0fb668849e10",
+    "outputs": [
+      "generated/slides/indiscernible-lemma/step-01.svg",
+      "generated/slides/indiscernible-lemma/step-02.svg"
+    ]
+  }
+}

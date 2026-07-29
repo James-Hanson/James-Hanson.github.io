@@ -1,0 +1,449 @@
+{
+  "title": "Small, Large Cardinals and Neostability Theory — New Forking Festival 2026",
+  "assets": [
+    {
+      "type": "link",
+      "source": "diagrams/higher-arity-stability-diagram-nop2.svg",
+      "output": "generated/assets/higher-arity-stability-diagram.svg"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/title/main-title.png",
+      "output": "assets/title/main-title.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/title/author.png",
+      "output": "assets/title/author.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/title-overlays/title-overlay-1.png",
+      "output": "assets/title-overlays/title-overlay-1.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/title-overlays/title-overlay-2.png",
+      "output": "assets/title-overlays/title-overlay-2.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/pigeon-clipart-cutout.png",
+      "output": "assets/pigeon-clipart-cutout.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/pigeon-clipart-cutout-lo.png",
+      "output": "assets/pigeon-clipart-cutout-lo.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/pigeon-haze.png",
+      "output": "assets/pigeon-haze.png"
+    },
+    {
+      "type": "link",
+      "source": "../html/assets/pigeon-haze-lo.png",
+      "output": "assets/pigeon-haze-lo.png"
+    },
+    {
+      "type": "link",
+      "source": "../shared-assets/fonts/Jokerman.otf",
+      "output": "assets/fonts/Jokerman.otf"
+    },
+    {
+      "type": "tex-overlay",
+      "id": "canonical-partition-tree-cut-overlay",
+      "source": "slides/canonical-partition-tree-cut-overlay.tex",
+      "output": "generated/overlays/canonical-partition-tree-cut-overlay.svg"
+    },
+    {
+      "type": "tex-overlay",
+      "id": "canonical-partition-tree-two-types-overlay",
+      "source": "slides/canonical-partition-tree-two-types-overlay.tex",
+      "output": "generated/overlays/canonical-partition-tree-two-types-overlay.svg"
+    },
+    {
+      "type": "tex-frame-sequence-images",
+      "source": "slides/k-splitting.tex",
+      "output": "generated/media/k-splitting-frames",
+      "width": 2016,
+      "height": 1512,
+      "dependencies": [
+        "../shared-assets/figures/k-splitting-diagram-0.pdf",
+        "../shared-assets/figures/k-splitting-diagram-1.pdf",
+        "../shared-assets/figures/k-splitting-diagram-2.pdf",
+        "../shared-assets/figures/k-splitting-diagram-3.pdf",
+        "../shared-assets/figures/k-splitting-diagram-4.pdf"
+      ],
+      "frames": [
+        { "frame": 1 },
+        { "frame": 2 },
+        { "frame": 3 },
+        { "frame": 4 }
+      ]
+    }
+  ],
+  "slides": [
+    {
+      "id": "title",
+      "title": "Title",
+      "type": "html",
+      "source": "slides/title.html",
+      "numbered": false
+    },
+    {
+      "id": "section-neostability",
+      "title": "Higher-arity neostability",
+      "type": "html",
+      "source": "slides/section-higher-arity-neostability-sway.html",
+      "numbered": false
+    },
+    {
+      "id": "higher-arity-neostability-intro",
+      "title": "Higher-arity neostability",
+      "type": "html",
+      "source": "slides/higher-arity-neostability-intro.html",
+      "numbered": true
+    },
+    {
+      "id": "higher-arity-neostability",
+      "title": "The zoo",
+      "type": "html",
+      "source": "slides/higher-arity.html",
+      "captureAdvance": true,
+      "captureRetreat": true,
+      "fullBleed": true,
+      "numbered": true
+    },
+    {
+      "id": "section-combinatorics",
+      "title": "Indiscernibles",
+      "type": "html",
+      "source": "slides/section-combinatorics-sway.html",
+      "borderless": true,
+      "numbered": false
+    },
+    {
+      "id": "indiscernibles",
+      "title": "Indiscernible sequences",
+      "type": "tex",
+      "source": "slides/0-indisc-seq-anim.tex",
+      "numbered": true,
+      "stepOverrides": {
+        "1": {
+          "type": "image",
+          "source": "../html/slides/slide-02.png",
+          "legacyFooter": true
+        },
+        "2": {
+          "type": "image",
+          "source": "../html/slides/slide-03.png",
+          "legacyFooter": true
+        },
+        "3": {
+          "type": "image",
+          "source": "../html/slides/slide-04.png",
+          "legacyFooter": true
+        },
+        "4": {
+          "type": "image",
+          "source": "../html/slides/slide-05.png",
+          "legacyFooter": true
+        },
+        "5": {
+          "type": "video",
+          "source": "../html/slides/0-indisc-seq-anim.webm",
+          "loop": true,
+          "overlaySource": "../html/slides/slide-05.png",
+          "overlayClip": "inset(0 55% 89% 0)",
+          "legacyFooter": true
+        },
+        "6": {
+          "type": "video",
+          "source": "../html/slides/0-indisc-seq-anim.webm",
+          "loop": true,
+          "overlaySource": "../html/slides/slide-05.png",
+          "overlayClip": "inset(0 55% 89% 0)",
+          "overlaySteps": [
+            {
+              "step": 6,
+              "clip": "inset(90% 20% 1% 20%)"
+            }
+          ],
+          "legacyFooter": true
+        }
+      }
+    },
+    {
+      "id": "canonical-partition-tree",
+      "title": "A proof of Ramsey, Erdős–Rado",
+      "type": "images",
+      "sources": [
+        "../html/slides/slide-07.png",
+        "../html/slides/slide-08.png",
+        "../html/slides/slide-09.png",
+        "../html/slides/slide-10.png",
+        "../html/slides/slide-11.png",
+        "../html/slides/slide-12.png",
+        "../html/slides/slide-13.png",
+        "../html/slides/slide-14.png",
+        "../html/slides/slide-15.png",
+        "../html/slides/slide-16.png",
+        "../html/slides/slide-17.png",
+        "../html/slides/slide-18.png",
+        "../html/slides/slide-19.png",
+        "../html/slides/slide-20.png",
+        "../html/slides/slide-21.png",
+        "../html/slides/slide-22.png",
+        "../html/slides/slide-23.png",
+        "../html/slides/slide-24.png",
+        "../html/slides/slide-25.png",
+        "../html/slides/slide-26.png",
+        "../html/slides/slide-27.png",
+        "../html/slides/slide-27.png",
+        "../html/slides/slide-28.png",
+        "../html/slides/slide-29.png",
+        "../html/slides/slide-30.png",
+        "../html/slides/slide-30.png",
+        "../html/slides/slide-30.png"
+      ],
+      "legacyFooter": true,
+      "numbered": true,
+      "stepOverrides": {
+        "20": {
+          "type": "video",
+          "source": "../html/slides/cpt-morph-v4.webm",
+          "loop": false,
+          "overlaySource": "html/generated/overlays/canonical-partition-tree-cut-overlay.svg",
+          "overlayClip": "inset(15% 3% 15% 52%)",
+          "overlayAtEnd": true,
+          "overlaySteps": [
+            {
+              "step": 19,
+              "clip": "inset(0 48% 89% 0)"
+            }
+          ],
+          "legacyFooter": true
+        },
+        "21": {
+          "type": "image",
+          "source": "../html/slides/slide-27.png",
+          "overlaySource": "html/generated/overlays/canonical-partition-tree-cut-overlay.svg",
+          "overlayClip": "inset(15% 3% 15% 52%)",
+          "legacyFooter": true
+        },
+        "22": {
+          "type": "image",
+          "source": "../html/slides/slide-27.png",
+          "overlaySource": "html/generated/overlays/canonical-partition-tree-two-types-overlay.svg",
+          "overlayClip": "inset(15% 3% 15% 52%)",
+          "legacyFooter": true
+        },
+        "26": {
+          "type": "image",
+          "source": "../html/slides/slide-30.png",
+          "overlaySource": "html/assets/canonical-partition-tree-additions/step-26.png",
+          "fullBleed": true,
+          "borderless": true,
+          "legacyFooter": true
+        },
+        "27": {
+          "type": "image",
+          "source": "../html/slides/slide-30.png",
+          "overlaySource": "html/assets/canonical-partition-tree-additions/step-27.png",
+          "fullBleed": true,
+          "borderless": true,
+          "legacyFooter": true
+        }
+      }
+    },
+    {
+      "id": "infinitely-many-pigeons",
+      "title": "Infinitely many pigeons",
+      "type": "html",
+      "source": "slides/infinitely-many-pigeons.html",
+      "captureAdvance": true,
+      "fullBleed": true,
+      "numbered": true
+    },
+    {
+      "id": "what-can-you-do",
+      "title": "What can you do?",
+      "type": "tex",
+      "source": "slides/what-can-you-do.tex",
+      "additionalSteps": [
+        {
+          "type": "html",
+          "source": "slides/what-can-you-do-both.html",
+          "title": "What can you do? A little of both?"
+        }
+      ],
+      "numbered": true
+    },
+    {
+      "id": "section-stability",
+      "title": "Stability",
+      "type": "html",
+      "source": "slides/section-higher-arity-neostability-crossed.html",
+      "additionalSteps": [
+        {
+          "type": "html",
+          "source": "slides/section-higher-arity-neostability-crossed.html",
+          "htmlState": {
+            "oldForking": true
+          },
+          "title": "Stability (i.e. old forking)"
+        }
+      ],
+      "numbered": false
+    },
+    {
+      "id": "splitting",
+      "title": "Splitting",
+      "type": "tex",
+      "source": "slides/splitting.tex",
+      "numbered": true
+    },
+    {
+      "id": "stability",
+      "title": "Indiscernibles from stability (Shelah)",
+      "type": "tex",
+      "source": "slides/stability.tex",
+      "numbered": true
+    },
+    {
+      "id": "k-ineffable",
+      "title": "Higher-arity Fodor",
+      "type": "tex",
+      "source": "html/slides/k-ineffable.tex",
+      "numbered": true,
+      "stepOverrides": {
+        "4": {
+          "type": "html",
+          "source": "slides/k-ineffable-hierarchy.html",
+          "query": "static=1",
+          "embeddedFooter": true,
+          "fullBleed": true,
+          "borderless": true
+        }
+      },
+      "additionalSteps": [
+        {
+          "type": "html",
+          "source": "slides/k-ineffable-hierarchy.html",
+          "captureAdvance": true,
+          "embeddedFooter": true,
+          "fullBleed": true,
+          "borderless": true
+        }
+      ]
+    },
+    {
+      "id": "section-k-splitting",
+      "title": "k-splitting",
+      "type": "html",
+      "source": "slides/section-k-splitting-bowed.html",
+      "borderless": true,
+      "numbered": false
+    },
+    {
+      "id": "k-splitting",
+      "title": "3-splitting",
+      "type": "tex",
+      "source": "slides/k-splitting.tex",
+      "numbered": true,
+      "stepOverrides": {
+        "1": {
+          "type": "image-sequence",
+          "frames": [
+            {
+              "source": "generated/media/k-splitting-frames/frame-01.png",
+              "duration": 0.8
+            },
+            {
+              "source": "generated/media/k-splitting-frames/frame-02.png",
+              "duration": 0.8
+            },
+            {
+              "source": "generated/media/k-splitting-frames/frame-03.png",
+              "duration": 0.8
+            },
+            {
+              "source": "generated/media/k-splitting-frames/frame-04.png",
+              "duration": 1.6
+            }
+          ],
+          "loop": true,
+          "legacyFooter": true
+        }
+      }
+    },
+    {
+      "id": "bounded-k-splitting-definition",
+      "title": "Bounded k-splitting",
+      "type": "tex",
+      "source": "html/slides/bounded-k-splitting-definition.tex",
+      "numbered": true
+    },
+    {
+      "id": "k-end-homogeneity",
+      "title": "A 3-end-homogeneous sequence",
+      "type": "tex",
+      "source": "slides/4-k-end-homogeneity.tex",
+      "numbered": true,
+      "stepOverrides": {
+        "1": {
+          "type": "video",
+          "source": "html/generated/media/4-k-end-homogeneity.webm",
+          "loop": true,
+          "legacyFooter": false
+        }
+      }
+    },
+    {
+      "id": "indiscernible-lemma",
+      "title": "Lemma",
+      "type": "tex",
+      "source": "html/slides/indiscernible-lemma.tex",
+      "numbered": true
+    },
+    {
+      "id": "bounded-k-splitting",
+      "title": "Theorem (me)",
+      "type": "tex",
+      "source": "slides/bounded-k-splitting.tex",
+      "numbered": true
+    },
+    {
+      "id": "nip-not-bounded-k-splitting",
+      "title": "NIP does not imply bounded k-splitting for any k",
+      "type": "tex",
+      "source": "slides/nip-not-bounded-k-splitting.tex",
+      "numbered": true
+    },
+    {
+      "id": "application",
+      "title": "An application",
+      "type": "tex",
+      "source": "slides/application.tex",
+      "numbered": true
+    },
+    {
+      "id": "strong-witnesses-lascar",
+      "title": "Strong witnesses of Lascar strong type",
+      "type": "tex",
+      "source": "html/slides/strong-witnesses-lascar.tex",
+      "numbered": true
+    },
+    {
+      "id": "thank-you",
+      "title": "Thank you",
+      "type": "pdf",
+      "source": "../shared-assets/figures/ThankYou.pdf",
+      "pages": [1],
+      "numbered": false,
+      "borderless": true
+    }
+  ]
+}

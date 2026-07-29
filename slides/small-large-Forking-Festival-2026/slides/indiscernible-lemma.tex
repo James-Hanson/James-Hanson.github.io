@@ -1,0 +1,29 @@
+\begin{frame}
+  \frametitle{Lemmas}
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[align=center,font=\normalsize] at
+      ($ (current page.center) + (0,1.55) $)
+      {if $(b_i)$ is $k$-end-homogeneous and for every\\[0.35em]
+      $i\leq j_0<\dots<j_{k-1}$,
+      $\mathrm{tp}(b_{j_0};\dots;b_{j_{k-1}}/b_{<i})$\\[0.35em]
+      does not $k$-split over $\varnothing$, then
+      $(b_i)$ is an indiscernible sequence.};
+
+    \only<2>{
+      \node[align=center,font=\normalsize] at
+        ($ (current page.center) + (0,-1.85) $)
+        {if $\mu$ is $k$-ineffable and $|T|<\mu$, then for any
+        $(b_i)_{i<\mu}$,\\[0.35em]
+        there is a stationary $X\subseteq\mu$ such that
+        $(b_i)_{i\in X}$ is $k$-end-homogeneous.};
+    }
+
+    \only<1>{
+      \fill[black]
+        ($ (current page.north west) + (1.78,-0.12) $)
+        rectangle
+        ($ (current page.north west) + (2.30,-0.86) $);
+    }
+  \end{tikzpicture}
+\end{frame}

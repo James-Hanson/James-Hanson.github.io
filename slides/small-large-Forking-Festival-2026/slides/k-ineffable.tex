@@ -1,0 +1,44 @@
+\tikzfading[name=fade out,
+            inner color=transparent!0,
+            outer color=transparent!100]
+
+\def\pigeon#1{
+       \pgfmathsetmacro{\picturescale}{0.075*#1/0.6}
+        \fill[color=grape,path fading=fade out,scale=#1] (-0.1,-0.05) circle (70pt);
+        \node at (0,0) {\includegraphics[scale=\picturescale]{../shared-assets/figures/pigeon-clipart-recolor.png}};
+}
+
+
+\begin{frame}
+  \frametitle{Higher-arity Fodor's lemma?}
+
+  \begin{tikzpicture}[scale=1.5,remember picture,overlay]
+    \begin{scope}[shift={($ (current page.center) + (-3,-0.5) $)}]
+    \pigeon{0.5}
+    \end{scope}
+    \node[text width=5cm,align=center] at ($ (current page.center) + (-3,0) $) {Pigeonhole};
+    \node[text width=5cm,align=center] at ($ (current page.center) + (-2,0) $) {:};
+    \node[text width=5cm,align=center] at ($ (current page.center) + (-1,0) $) {Ramsey};
+    \node[text width=5cm,align=center] at ($ (current page.center) + (0,0) $) {::};
+    \node[text width=5cm,align=center] at ($ (current page.center) + (1,0) $) {Fodor};
+    \node[text width=5cm,align=center] at ($ (current page.center) + (2,0) $) {:};
+    \only<1>{
+      \node[text width=5cm,align=center] at ($ (current page.center) + (3,0) $) {???};
+    }
+    \only<2->{
+      \node[color=magenta,text width=5cm,align=center] at ($ (current page.center) + (3,0) $) {$k$-ineffable};
+    }
+    \only<4>{
+      \node[opacity=0] at (current page.center) {.};
+    }
+  \end{tikzpicture}
+  \begin{tikzpicture}[remember picture,overlay]
+    \only<3->{
+      \node[text width=8cm,align=center,font=\normalsize] at
+        ($ (current page.center) + (-2.2,-3.25) $)
+        {$\mu$ is {\color{magenta}$k$-ineffable} if for any regressive
+        $f:[X]^k\to\mu$ (with $X\subseteq\mu$ stationary),
+        there is a stationary $Y\subseteq X$ on which $f$ is monochromatic};
+    }
+  \end{tikzpicture}
+\end{frame}
