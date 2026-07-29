@@ -546,7 +546,7 @@ window.DECK_MANIFEST = {
         },
         {
           "type": "image",
-          "src": "generated/slides/k-ineffable/step-03.svg?v=e83813fe21cf",
+          "src": "generated/slides/k-ineffable/step-03.svg?v=cca1bde2c941",
           "alt": "Higher-arity Fodor",
           "legacyFooter": false
         },
