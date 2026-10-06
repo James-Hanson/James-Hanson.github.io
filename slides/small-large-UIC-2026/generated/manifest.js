@@ -779,11 +779,11 @@ window.DECK_MANIFEST = {
               "clipPath": "inset(30% 0 34% 0)"
             },
             {
-              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5b43027208ed",
+              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5d1ad4f9f7f1",
               "clipPath": "inset(0 0 70% 0)"
             },
             {
-              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5b43027208ed&theorem-text=1",
+              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5d1ad4f9f7f1&theorem-text=1",
               "clipPath": "inset(30% 0 34% 0)"
             }
           ]
@@ -799,11 +799,11 @@ window.DECK_MANIFEST = {
               "clipPath": "inset(30% 0 34% 0)"
             },
             {
-              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5b43027208ed",
+              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5d1ad4f9f7f1",
               "clipPath": "inset(0 0 70% 0)"
             },
             {
-              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5b43027208ed&theorem-text=1",
+              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5d1ad4f9f7f1&theorem-text=1",
               "clipPath": "inset(30% 0 34% 0)"
             },
             {
@@ -823,11 +823,11 @@ window.DECK_MANIFEST = {
               "clipPath": "inset(30% 0 34% 0)"
             },
             {
-              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5b43027208ed",
+              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5d1ad4f9f7f1",
               "clipPath": "inset(0 0 70% 0)"
             },
             {
-              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5b43027208ed&theorem-text=1",
+              "src": "generated/bounded-k-splitting-watson-overlay.svg?v=5d1ad4f9f7f1&theorem-text=1",
               "clipPath": "inset(30% 0 34% 0)"
             },
             {
