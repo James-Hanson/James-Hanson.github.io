@@ -37,6 +37,18 @@
       max-width: none;
       object-fit: contain;
     }
+    .diagram {
+      position: relative;
+      flex: 0 0 auto;
+      height: 100%;
+    }
+    .track .diagram-arrow {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
     .title-overlay {
       position: absolute;
       z-index: 4;
@@ -53,10 +65,13 @@
 <body>
   <main class="slide">
     <div class="track">
+      <div class="diagram">
       <img
         src="../../small-large-Forking-Festival-2026/generated/assets/higher-arity-stability-diagram.svg"
         alt="Higher-arity neostability diagram"
       >
+      <img class="diagram-arrow" src="../generated/treeless-c-less-arrow.svg" alt="Treelessness implies C-lessness">
+      </div>
     </div>
     <img
       class="title-overlay"

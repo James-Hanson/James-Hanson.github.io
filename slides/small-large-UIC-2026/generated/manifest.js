@@ -60,7 +60,7 @@ window.DECK_MANIFEST = {
       "steps": [
         {
           "type": "html",
-          "src": "slides/higher-arity.html?v=autoplay-clock-1",
+          "src": "slides/higher-arity.html?v=2b7e49fbe114",
           "title": "The zoo",
           "captureAdvance": true,
           "captureRetreat": true,
