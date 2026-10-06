@@ -1,0 +1,17 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\definecolor{cyan}{HTML}{0abdc6}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{background canvas}{}
+\begin{document}
+\begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[cyan,anchor=base,inner sep=0pt,font=\large]
+      at ($(current page.north west)+(181.4175bp,-172bp)$)
+      {also we get a ZFC result at roughly the level of Erd\H{o}s--Rado};
+  \end{tikzpicture}
+\end{frame}
+\end{document}

@@ -1,0 +1,21 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,tikz}
+\usetikzlibrary{calc}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{background canvas}{}
+\begin{document}
+\begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    % Replace only the conclusion, preserving the implication and pigeon art.
+    \fill[black] ($(current page.center)+(-0.75,0.65)$)
+      rectangle ($(current page.center)+ (6.2,-0.65)$);
+    \node[white,align=center] at ($(current page.center)+(2.7,0)$)
+      {$\begin{matrix}
+        \text{every sufficiently long sequence has}\\
+        \text{(stationary) indiscernible subsequence}
+      \end{matrix}$};
+  \end{tikzpicture}
+\end{frame}
+\end{document}

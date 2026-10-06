@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Small, Large Cardinals and Neostability Theory — UIC Logic Seminar</title>
+  <link rel="stylesheet" href="../small-large-Forking-Festival-2026/deck.css">
+  <style>
+    /* The septenary overlay contains opaque black around its artwork.
+       Screen blending lets the underlying slide show through those pixels. */
+    #step-overlay:has(> img[src*="/step-27.png"]) {
+      mix-blend-mode: screen;
+    }
+    /* Mirror the wow glyphs reused from the existing slide artwork. */
+    #step-overlay > img[src*="mirror-wow=1"] {
+      transform: scaleX(-1);
+    }
+    /* Reuse the theorem artwork, moving only its central text by one line. */
+    #content img[src*="/bounded-k-splitting/"] {
+      clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%,
+                         0 66%, 100% 66%, 100% 100%, 0 100%);
+    }
+    #step-overlay > img[src*="theorem-text=1"] {
+      transform: translateY(-6.35257%);
+    }
+  </style>
+</head>
+<body>
+  <main id="viewer" aria-live="polite">
+    <div id="stage" aria-label="Presentation slide">
+      <div id="content"></div>
+      <div id="k-splitting-overflow-glow" aria-hidden="true"></div>
+      <div id="step-overlay" aria-hidden="true"></div>
+      <div id="legacy-footer-mask" aria-hidden="true"></div>
+      <div id="footer-layer" aria-hidden="true">
+        <img id="footer-overlay" alt="">
+      </div>
+      <div id="loading" role="status">Loading…</div>
+    </div>
+  </main>
+
+  <div id="counter" aria-hidden="true"></div>
+  <div id="help" role="dialog" aria-modal="false" aria-label="Presentation controls">
+    <p><kbd>←</kbd>/<kbd>→</kbd> or <kbd>Shift</kbd>+<kbd>Space</kbd>/<kbd>Space</kbd>: navigate</p>
+    <p><kbd>Home</kbd>/<kbd>End</kbd>: first/last slide · <kbd>F</kbd>: fullscreen</p>
+    <p><kbd>C</kbd>: counter · <kbd>R</kbd>: restart media · <kbd>?</kbd>: this help</p>
+  </div>
+
+  <script src="generated/manifest.js"></script>
+  <script src="../small-large-Forking-Festival-2026/deck.js"></script>
+</body>
+</html>

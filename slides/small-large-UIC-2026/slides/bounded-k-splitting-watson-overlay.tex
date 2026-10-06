@@ -1,0 +1,36 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,tikz}
+\usetikzlibrary{calc}
+\definecolor{magenta}{HTML}{ea00d9}
+\definecolor{cyan}{HTML}{0abdc6}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{background canvas}{}
+\begin{document}
+\begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    % Coordinates match the original slide's SVG viewBox (in PDF points).
+    \draw[cyan,line width=1.1bp,line cap=round]
+      ($(current page.north west)+(63bp,-18.5bp)$) --
+      ($(current page.north west)+(92bp,-16.5bp)$);
+    \node[cyan,anchor=base west,inner sep=0pt,font=\usebeamerfont{frametitle}]
+      at ($(current page.north west)+(99bp,-21.15bp)$) {(Watson, last month)};
+    \draw[cyan,line width=1bp,line cap=round]
+      ($(current page.north west)+(111bp,-110bp)$) --
+      ($(current page.north west)+(160bp,-108bp)$);
+    \node[magenta,anchor=base,inner sep=0pt]
+      at ($(current page.north west)+(136bp,-95bp)$) {weakly compact};
+    \draw[magenta,line width=1bp,line cap=round]
+      ($(current page.north west)+(142bp,-145.5bp)$) --
+      ($(current page.north west)+(186bp,-143bp)$);
+    \node[magenta,anchor=base west,inner sep=0pt]
+      at ($(current page.north west)+(279bp,-140bp)$)
+      {with $|X|=\mu$};
+    \draw[magenta,line width=0.8bp]
+      ($(current page.north west)+(275bp,-137bp)$) --
+      ($(current page.north west)+(221.5bp,-137bp)$) --
+      ($(current page.north west)+(221.5bp,-143.5bp)$);
+  \end{tikzpicture}
+\end{frame}
+\end{document}

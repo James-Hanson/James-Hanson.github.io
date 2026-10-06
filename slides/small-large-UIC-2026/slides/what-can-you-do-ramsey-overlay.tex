@@ -1,0 +1,27 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,tikz}
+\usetikzlibrary{calc}
+\definecolor{magenta}{HTML}{ea00d9}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{background canvas}{}
+\begin{document}
+\begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    % Cover the original, more widely spaced Erdős relation before redrawing it.
+    \fill[black] ($(current page.center)+(-5.5,-0.55)$)
+      rectangle ($(current page.center)+(-0.5,-1.9)$);
+    \node[magenta,text width=5cm,align=center]
+      at ($(current page.center)+(-3,-0.85)$)
+      {$\kappa\longrightarrow(\omega)^{<\omega}_{2}$};
+    \node[magenta,text width=5cm,align=center]
+      at ($(current page.center)+(-3,-1.65)$) {Ramsey cardinals};
+    \node[magenta,text width=5cm,align=center]
+      at ($(current page.center)+(-3,-2.45)$)
+      {$\kappa\longrightarrow(\kappa)^{<\omega}_{2}$};
+    \node[magenta,text width=5cm,align=center]
+      at ($(current page.center)+(-3,-3.25)$) {etc.};
+  \end{tikzpicture}
+\end{frame}
+\end{document}
