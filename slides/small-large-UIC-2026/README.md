@@ -61,8 +61,12 @@ the text by 15% and moves its baseline from 172 to 185 PDF points; preserve
 this SVG postprocessing when rebuilding it.
 
 The application slide uses the small native vector overlay
-`generated/application-crossout.svg`. `scribble-variants.html` is a separate
-comparison page; variant 13 is used in the presentation.
+`generated/application-crossout.svg`; the selected zigzag is used in the
+presentation.
 
 The hierarchy's embedded footer matches the viewer's clamped footer size and
 offsets on entry, including small viewports.
+
+The Septenary label on canonical-partition-tree step 27 is replaced by a
+small vector overlay, with a matching SVG mask removing the clipped original
+label. The original PNG and its screen blending remain shared.

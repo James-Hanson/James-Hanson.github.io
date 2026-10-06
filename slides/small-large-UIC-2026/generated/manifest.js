@@ -375,6 +375,10 @@ window.DECK_MANIFEST = {
             {
               "src": "../small-large-Forking-Festival-2026/media/step-27.png?v=d3fc4dcbc168",
               "clipPath": "none"
+            },
+            {
+              "src": "generated/septenary-label-overlay.svg?v=8fc1af60a6d1",
+              "clipPath": "none"
             }
           ]
         }

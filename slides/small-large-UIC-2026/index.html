@@ -11,6 +11,12 @@
     #step-overlay:has(> img[src*="/step-27.png"]) {
       mix-blend-mode: screen;
     }
+    #step-overlay > img[src*="/step-27.png"] {
+      mask-image: url("generated/septenary-label-mask.svg");
+      mask-size: contain;
+      mask-position: center;
+      mask-repeat: no-repeat;
+    }
     /* Mirror the wow glyphs reused from the existing slide artwork. */
     #step-overlay > img[src*="mirror-wow=1"] {
       transform: scaleX(-1);
