@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en" data-palette="haunted">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Constructive math and the continuous degrees — James E. Hanson</title>
+  <link rel="stylesheet" href="palettes.css">
+  <link rel="stylesheet" href="fonts/latin-modern-sans.css">
+  <link rel="stylesheet" href="fonts/albertus.css">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css?v=font-fix-20261008">
+  <link rel="stylesheet" href="deck.css?v=no-palette-strip-20261008">
+</head>
+<body>
+  <main id="viewer" aria-live="polite">
+    <div class="halting-cloud" aria-hidden="true">
+      <span style="font-size: 4.50vw">Does \(\varphi_{390}(340)\) halt?</span>
+      <span style="font-size: 4.50vw">Does \(\varphi_{236}(170)\) halt?</span>
+      <span style="font-size: 4.50vw">Does \(\varphi_{923}(935)\) halt?</span>
+      <span style="font-size: 3.00vw">Does \(\varphi_{394}(591)\) halt?</span>
+      <span style="font-size: 3.00vw">Does \(\varphi_{917}(706)\) halt?</span>
+      <span style="font-size: 3.00vw">Does \(\varphi_{290}(566)\) halt?</span>
+      <span style="font-size: 3.00vw">Does \(\varphi_{283}(392)\) halt?</span>
+      <span style="font-size: 3.00vw">Does \(\varphi_{872}(749)\) halt?</span>
+      <span style="font-size: 3.00vw">Does \(\varphi_{781}(590)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{9}(799)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{255}(677)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{859}(18)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{449}(971)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{158}(153)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{740}(326)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{171}(263)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{670}(707)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{635}(597)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{60}(122)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{803}(601)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{33}(442)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{887}(288)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{861}(752)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{221}(74)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{743}(368)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{749}(486)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{128}(568)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{686}(18)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{126}(101)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{935}(147)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{705}(922)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{182}(54)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{272}(325)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{230}(634)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{26}(622)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{591}(186)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{445}(909)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{815}(866)\) halt?</span>
+      <span style="font-size: 2.10vw">Does \(\varphi_{58}(308)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{409}(149)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{109}(683)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{95}(416)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{22}(679)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{672}(505)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{880}(404)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{235}(22)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{87}(138)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{79}(469)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{968}(745)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{411}(435)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{545}(762)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{286}(552)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{28}(901)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{14}(670)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{474}(329)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{180}(142)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{826}(67)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{733}(40)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{737}(883)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{698}(895)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{872}(769)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{858}(111)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{676}(722)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{130}(916)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{910}(423)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{671}(726)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{767}(87)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{623}(541)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{428}(615)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{868}(101)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{984}(967)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{247}(225)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{447}(371)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{751}(470)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{696}(739)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{420}(807)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{460}(84)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{990}(684)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{282}(555)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{216}(951)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{702}(254)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{283}(386)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{918}(720)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{333}(827)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{946}(637)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{388}(806)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{906}(301)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{769}(451)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{749}(82)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{219}(565)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{168}(218)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{31}(230)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{184}(480)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{682}(246)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{65}(242)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{560}(580)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{637}(158)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{504}(336)\) halt?</span>
+      <span style="font-size: 1.40vw">Does \(\varphi_{124}(233)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{393}(692)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{738}(121)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{842}(457)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{613}(757)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{730}(197)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{565}(792)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{509}(402)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{993}(365)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{915}(277)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{841}(362)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{30}(182)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{603}(725)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{964}(157)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{653}(156)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{525}(530)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{665}(941)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{181}(421)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{745}(996)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{802}(984)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{73}(42)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{522}(682)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{609}(710)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{360}(219)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{698}(408)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{944}(954)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{927}(978)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{315}(290)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{155}(265)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{874}(388)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{626}(236)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{849}(125)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{889}(723)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{286}(636)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{601}(426)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{310}(412)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{816}(503)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{708}(871)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{244}(99)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{512}(481)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{608}(451)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{238}(495)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{186}(925)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{485}(298)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{73}(252)\) halt?</span>
+      <span style="font-size: 0.85vw">Does \(\varphi_{507}(482)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{962}(582)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{845}(384)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{55}(625)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{845}(733)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{836}(725)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{547}(27)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{775}(778)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{645}(200)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{422}(822)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{510}(330)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{940}(375)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{593}(176)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{437}(888)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{16}(227)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{169}(893)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{630}(526)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{410}(152)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{27}(670)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{604}(543)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{384}(27)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{239}(843)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{869}(277)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{636}(24)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{570}(784)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{538}(744)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{252}(395)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{743}(190)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{45}(539)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{335}(600)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{522}(706)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{188}(501)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{65}(581)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{550}(738)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{41}(194)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{378}(184)\) halt?</span>
+      <span style="font-size: 0.55vw">Does \(\varphi_{283}(496)\) halt?</span>
+    </div>
+    <div id="stage" aria-label="Presentation slide">
+      <div id="slides">
+
+        <!-- Slide 1 — Title -->
+        <section class="slide slide--title" aria-label="Title slide">
+          <div class="title__body">
+            <p class="title__author">James E Hanson's</p>
+            <h1 class="title__heading">
+              <span class="title__line">Constructive Math</span>
+              <span class="title__and">and the</span>
+              <span class="title__line">Continuous Degrees</span>
+            </h1>
+            <div class="title__meta">
+              <span class="title__venue">Midwest Computability Seminar</span>
+              <span class="title__date">October 8, 2026</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 2 — Constructive math -->
+        <section class="slide slide--content slide--brouwer" aria-label="Constructive math">
+          <div class="brouwer__left">
+            <img class="brouwer__paper" src="brouwer-1908-title-slide.png"
+                 alt="Title block of Brouwer, De onbetrouwbaarheid der logische principes">
+            <p class="brouwer__year">1908</p>
+          </div>
+          <img class="brouwer__portrait" src="brouwer-portrait-slide.png"
+               alt="L. E. J. Brouwer">
+
+          <!-- Subslide: LEM struck out. Hidden until advanced to. -->
+          <div class="step lem-no" aria-label="The law of excluded middle, rejected">
+            <span class="lem-no__text">LEM</span>
+            <svg class="lem-no__mark" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="88"/>
+              <line x1="38" y1="38" x2="162" y2="162"/>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Slide 3 — Kleene realizability -->
+        <section class="slide slide--content slide--kleene" aria-label="Kleene realizability">
+          <!-- Four subslides: paper, table, aside text, then the LEM question.
+               Hidden content stays in the layout to prevent shifts. -->
+          <div class="kleene__main">
+            <img class="kleene__paper" data-frame="1" src="kleene-1945-slide.png"
+                 alt="Header of Kleene, On the interpretation of intuitionistic number theory, 1945">
+            <table class="eqtable" data-frame="2" data-through-frame="4">
+            <tbody>
+              <tr>
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash \alpha \land \beta\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs">\(\displaystyle 1^{\text{st}}(e) \Vdash \alpha \land 2^{\text{nd}}(e) \Vdash \beta\)</td>
+              </tr>
+              <tr>
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash \alpha \lor \beta\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs"><span class="disj"><span class="disj__op"></span><span>\(\displaystyle \bigl(1^{\text{st}}(e) = 0 \land 2^{\text{nd}}(e) \Vdash \alpha\bigr)\)</span><span class="disj__op">\(\displaystyle \lor\)</span><span>\(\displaystyle \bigl(1^{\text{st}}(e) = 1 \land 2^{\text{nd}}(e) \Vdash \beta\bigr)\)</span></span></td>
+              </tr>
+              <tr>
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash \alpha \to \beta\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs">\(\displaystyle \forall n\,\bigl(n \Vdash \alpha \to \varphi_e(n){\downarrow}\Vdash \beta\bigr)\)</td>
+              </tr>
+              <tr class="eqtable__negation">
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash \neg\alpha\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs">\(\displaystyle \forall n\,\neg(n \Vdash \alpha)\)</td>
+              </tr>
+              <tr>
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash \forall x\,\alpha(x)\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs">\(\displaystyle \forall n\,\bigl(\varphi_e(n){\downarrow}\Vdash \alpha(n)\bigr)\)</td>
+              </tr>
+              <tr>
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash \exists x\,\alpha(x)\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs">\(\displaystyle 2^{\text{nd}}(e) \Vdash \alpha\bigl(1^{\text{st}}(e)\bigr)\)</td>
+              </tr>
+              <tr>
+                <td class="eqtable__lhs">\(\displaystyle e \Vdash s = t\)</td>
+                <td class="eqtable__iff">\(\text{iff}\)</td>
+                <td class="eqtable__rhs">\(\displaystyle s = t\)</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="kleene__aside">
+            <img class="kleene__portrait" data-frame="1" data-through-frame="2" src="kleene-portrait-slide.png" alt="S. C. Kleene">
+            <div class="kleene__statement" data-frame="3" data-through-frame="4">
+              <p class="kleene__observation">For any sentence \(\varphi\), either \(\varphi\) is realized or \(\neg\varphi\) is realized.</p>
+              <p class="kleene__lem-question" data-frame="4">LEM?</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 4 — LEM rejected (same mark as slide 2's subslide 2) -->
+        <section class="slide slide--content slide--halting" aria-label="LEM and halting questions">
+          <div class="lem-no" aria-label="The law of excluded middle, rejected">
+            <span class="lem-no__text">LEM</span>
+            <svg class="lem-no__mark" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="88"/>
+              <line x1="38" y1="38" x2="162" y2="162"/>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Slide 5 — Markov's Principle (Stein's Law).
+             Original transcript: S. Hrg. 99-637, January 16, 1986, p. 262.
+             Source and crop details: assets/stein-law/source.json. -->
+        <section class="slide slide--content slide--stein" data-outline="4" aria-label="Markov's Principle">
+          <h2>Markov's Principle <span data-frame="2">(Stein's Law)</span></h2>
+          <div class="stein__body">
+            <!-- Binary-sequence form of MP; cf. Bauer, First Steps in Synthetic
+                 Computability, slide 33: https://math.andrej.com/asset/data/est.pdf -->
+            <p class="stein__principle">\(\displaystyle \neg\forall n\,(f(n)\neq 0)\;\to\;\exists n\,(f(n)=0)\)</p>
+            <figure class="stein__figure" data-frame="2">
+              <div class="stein__scan">
+                <img class="stein__passage" src="assets/stein-law/stein-1986-law-passage.png"
+                     width="1992" height="382"
+                     alt="Herbert Stein's congressional testimony, January 16, 1986, page 262: if something cannot go on forever it will stop.">
+                <!-- Recolor only the quoted sentence, across its two scanned lines. -->
+                <svg class="stein__highlight" viewBox="0 0 1992 382" aria-hidden="true" focusable="false">
+                  <defs>
+                    <clipPath id="stein-law-highlight" clipPathUnits="userSpaceOnUse">
+                      <rect x="1206" y="75" width="750" height="61"/>
+                      <rect x="20" y="136" width="562" height="62"/>
+                    </clipPath>
+                  </defs>
+                  <image href="assets/stein-law/stein-1986-law-passage.png" width="1992" height="382"
+                         filter="url(#paper-recolor-pumpkin)" clip-path="url(#stein-law-highlight)"/>
+                </svg>
+              </div>
+              <figcaption>US Congress Joint Economics Committeee hearing, January 16, 1986</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- Slide 6 — Partially numbered sets; outline §5.
+             Spreen, Strong Reducibility of Partial Numberings, Definition 1
+             and the following definition of effective maps.
+             Source image: assets/paper-headers/spreen_strong_reducibility_title_authors.png -->
+        <section class="slide slide--content slide--numbered" aria-label="Numbered sets">
+          <h2>Numbered sets</h2>
+          <div class="numbered__body slide__body--centered">
+            <p>A <em>(partially) numbered set</em> is a set \(X\) together with a partial surjection <span class="math-nowrap">\(\nu : \mathbb{N} \rightharpoonup X\)</span>.</p>
+            <p class="numbered__morphism step">A <em>map</em> \((X_0,\nu_0)\to(X_1,\nu_1)\) is a function \(f : X_0\to X_1\) and a Turing index \(e\) such that \(\nu_1(\varphi_e(n){\downarrow}) = f(\nu_0(n))\) for all \(n\) in the domain of \(\nu_0\).</p>
+          </div>
+        </section>
+
+        <!-- Placeholder text follows The Countable Reals Talk Outline.docx.
+             The previous deck, including Assemblies, PERs, and its four
+             placeholders, is preserved in archive/2026-10-06-before-outline/index.html. -->
+
+        <!-- Slide 7 — outline §7: Cantor's diagonal argument. -->
+        <section class="slide slide--content slide--cantor" data-outline="7" aria-label="Cantor wasn't wrong">
+          <h2>Cantor wasn't wrong</h2>
+          <img class="cantor__portrait" src="500px-Georg_Cantor_(Porträt).jpg" alt="Georg Cantor">
+          <div class="cantor__body">
+            <p>\[f:\mathbb{N}\to 2^{\mathbb{N}}\]</p>
+            <p>\[g(n)=1-f(n)(n)\]</p>
+          </div>
+        </section>
+
+        <!-- Slide 8 — outline §6: An uncountable subset of N. -->
+        <section class="slide slide--content slide--tot" data-outline="6" aria-label="An uncountable subset of N">
+          <h2>An uncountable subset of \(\mathbb{N}\)</h2>
+          <div class="tot__body">
+            <p>\(\displaystyle \mathrm{Tot}=\{e\in\mathbb{N}:\varphi_e\text{ is total}\}\)</p>
+            <p class="tot__claim" data-frame="2">For any <span class="math-nowrap">\(f:\mathbb{N}\to\mathrm{Tot}\)</span>, there is an <span class="math-nowrap">\(e\in\mathrm{Tot}\)</span> not in the range of \(f\):</p>
+            <p class="tot__diagonal" data-frame="2">\[\varphi_e(n)=1+\varphi_{f(n)}(n)\]</p>
+          </div>
+        </section>
+
+        <!-- Slide 9 — outline §8: Realizers for real numbers. -->
+        <section class="slide slide--content slide--reals" data-outline="8" aria-label="What is R?">
+          <h2>What is \(\mathbb{R}\)?</h2>
+          <div class="reals__body slide__body--centered">
+            <p>A realizer for \(r \in \mathbb{R}\) is a Turing index \(e\) of a (rapidly converging) Cauchy sequence limiting to \(r\).</p>
+            <p class="reals__consequence" data-frame="2" data-through-frame="3">This means that \(\mathbb{R}\) admits a surjection from a subset of \(\mathbb{N}\):
+              \[\{e \in \mathbb{N} : e \text{ computes a Cauchy sequence}\}\]
+            </p>
+            <p class="reals__conclusion" data-frame="3">Gives a model of constructive math \(\to\) ‘There is no surjection from a subset of \(\mathbb{N}\) onto \(\mathbb{R}\)’ is not constructively provable.</p>
+          </div>
+        </section>
+
+        <!-- Slide 10 — outline §9: Questions. -->
+        <section class="slide slide--content slide--questions" data-outline="9" aria-label="Other kinds of countable?">
+          <h2>Other kinds of countable?</h2>
+          <div class="questions__body slide__body--centered">
+            <p>Can you constructively prove...</p>
+            <ul>
+              <li class="step">...that there is no injection from \(\mathbb{R}\) into \(\mathbb{N}\)?</li>
+              <li class="step">...that there is no surjection from \(\mathbb{N}\) onto \(\mathbb{R}\)?</li>
+              <li class="step questions__bijection">
+                <span class="questions__crossed-text">...that there is no bijection between \(\mathbb{N}\) and \(\mathbb{R}\)?
+                  <svg class="questions__strike" data-frame="5" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path d="M-6 46 L25 -9 78 108 142 15 181 98 235 -16 302 117 341 7 402 92 467 -3 510 110 573 18 626 103 671 -12 735 118 784 9 825 96 890 -5 950 113 995 -11 1010 60" vector-effect="non-scaling-stroke"/>
+                  </svg>
+                </span>
+              </li>
+            </ul>
+            <p class="questions__consequence" data-frame="5">injection \(\mathbb{R}\) into \(\mathbb{N}\) \(\to\) \(\mathbb{R}\) has decidable equality \(\to\) no surjection \(\mathbb{N}\) onto \(\mathbb{R}\)</p>
+          </div>
+        </section>
+
+        <!-- Slide 11 — outline §10: Variants of realizability.
+             Potential/actual realizers: https://www.brics.dk/RS/96/3/BRICS-RS-96-3.pdf
+             Failure of MP: https://www.dpmms.cam.ac.uk/~jmeh1/Research/Publications/2002/vor02.pdf
+             Bauer's 2011 blog post: https://math.andrej.com/2011/06/15/constructive-gem-an-injection-from-baire-space-to-natural-numbers/
+             Bauer: https://doi.org/10.1017/S0960129513000406 (Section 4). -->
+        <section class="slide slide--content slide--variants" data-outline="10" aria-label="Variants of realizability">
+          <h2>Variants of realizability</h2>
+          <div class="variants__body slide__body--centered">
+            <ul>
+              <li>(Kreisel 1957) <em>Modified realizability</em> adds ‘potential realizers’ in order to not satisfy Markov's principle.</li>
+              <li class="step">(Bauer 2011) Ordinal-time Turing machine realizability: Injection <span class="math-nowrap">from \(\mathbb{R}\) into \(\mathbb{N}\)</span>.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Slide 12 — outline §12: Continuous degrees.
+             Original outline: archive/2026-10-08-miller-placeholder-slide.html.
+             Miller, Degrees of unsolvability of continuous functions,
+             Journal of Symbolic Logic 69(2):555–584, 2004.
+             https://people.math.wisc.edu/~jsmiller8/Papers/continuous.pdf
+             Source image: assets/paper-headers/miller_continuous_functions.png -->
+        <section class="slide slide--content slide--miller" data-outline="12" aria-label="Continuous degrees">
+          <h2>Continuous degrees</h2>
+          <img class="miller__portrait" src="Miller-portrait.jpg" alt="Joe Miller">
+          <div class="miller__body slide__body--centered">
+            <p>(Miller 2004) Degrees for points in computable metric spaces:</p>
+            <div class="miller__definition">
+              <p>\[a \leq_r b\]</p>
+              <p>iff</p>
+              <p>every name of \(b\) computes a name of \(a\)</p>
+              <p>iff</p>
+              <p>same but uniformly</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 13 — Non-total continuous degrees. -->
+        <section class="slide slide--content slide--non-total" data-outline="12" aria-label="Non-total continuous degrees">
+          <h2>Non-total continuous degrees</h2>
+          <div class="miller__body slide__body--centered">
+            <p><span class="non-total__kakutani">Kakutani<span class="non-total__annotation" data-frame="4"><span class="non-total__glow" aria-hidden="true"></span></span></span>'s <span class="non-total__theorem">fixed-point theorem<span class="non-total__annotation" data-frame="3" data-through-frame="4"><span class="non-total__glow" aria-hidden="true"></span><svg class="non-total__connector" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M 0 100 V 0 H 100" vector-effect="non-scaling-stroke"/></svg><span class="non-total__label">Brouwer (non-constructive)</span></span></span> \(\to\) There is a \(\mu\in[0,1]^{\mathbb{N}}\) such that if \(\varphi_e^p\) computes a fixed element of \([0,1]\) for all names \(p\) of \(\mu\), then that element is <span class="non-total__value">\(\mu(e)\)<span class="non-total__annotation" data-frame="2" data-through-frame="4"><span class="non-total__glow" aria-hidden="true"></span></span></span>.</p>
+            <p class="non-total__conclusion step">Smells like a surjection from \(\mathbb{N}\) onto \([0,1]\)</p>
+            <svg class="non-total__surjection-connector" data-frame="2" data-through-frame="4" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <blockquote class="non-total__quote" data-frame="4">“A long time ago, the Japanese mathematician Kakutani asked me why so many economists had attended the lecture he had just given. When I told him that he was famous because of the Kakutani fixed-point theorem, he replied, ‘What is the Kakutani fixed-point theorem?’” <span class="non-total__attribution">-Ken Binmore</span></blockquote>
+          <svg class="non-total__quote-connector" data-frame="4" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke"/></svg>
+        </section>
+
+        <!-- Slide 14 — outline §13: Parameterized realizability.
+             Arithmetic clauses unpacked from Bauer–Hanson, The countable
+             reals, §§4.2, 4.8 and 4.10.1, for the oracle ppca of Example 3.5.
+             https://arxiv.org/html/2404.01256v3#S4.SS2
+             Use the computable numerical pairing from slide 3. These
+             conjunction, disjunction and existential encodings are uniformly
+             equivalent to the paper's ppca encodings. Every occurrence of
+             realizability refers to the entire fixed parameter set P; the
+             recursive subformulas are not evaluated at just the current p.
+             Original outline: archive/2026-10-08-parameterized-placeholder-slide.html. -->
+        <section class="slide slide--content slide--parameterized" data-outline="13" aria-label="Parameterized realizability">
+          <h2>Parameterized realizability</h2>
+          <div class="parameterized__body">
+            <p class="parameterized__changed">Fix a nonempty set of oracles \(\mathbb{P}\subseteq 2^{\mathbb{N}}\).</p>
+            <table class="eqtable parameterized__table">
+              <tbody>
+                <tr>
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash \alpha \land \beta\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs">\(\displaystyle 1^{\text{st}}(e) \Vdash \alpha \land 2^{\text{nd}}(e) \Vdash \beta\)</td>
+                </tr>
+                <tr>
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash \alpha \lor \beta\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs"><span class="disj"><span class="disj__op"></span><span>\(\displaystyle \bigl(1^{\text{st}}(e) = 0 \land 2^{\text{nd}}(e) \Vdash \alpha\bigr)\)</span><span class="disj__op">\(\displaystyle \lor\)</span><span>\(\displaystyle \bigl(1^{\text{st}}(e) = 1 \land 2^{\text{nd}}(e) \Vdash \beta\bigr)\)</span></span></td>
+                </tr>
+                <tr class="parameterized__changed">
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash \alpha \to \beta\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs">\(\displaystyle \forall p\in\mathbb{P}\;\forall n\,\bigl(n \Vdash \alpha \to \varphi_e^p(n){\downarrow}\Vdash \beta\bigr)\)</td>
+                </tr>
+                <tr>
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash \neg\alpha\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs">\(\displaystyle \forall n\,\neg(n \Vdash \alpha)\)</td>
+                </tr>
+                <tr class="parameterized__changed">
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash \forall x\,\alpha(x)\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs">\(\displaystyle \forall p\in\mathbb{P}\;\forall n\,\bigl(\varphi_e^p(n){\downarrow}\Vdash \alpha(n)\bigr)\)</td>
+                </tr>
+                <tr>
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash \exists x\,\alpha(x)\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs">\(\displaystyle 2^{\text{nd}}(e) \Vdash \alpha\bigl(1^{\text{st}}(e)\bigr)\)</td>
+                </tr>
+                <tr>
+                  <td class="eqtable__lhs">\(\displaystyle e \Vdash s = t\)</td>
+                  <td class="eqtable__iff">\(\text{iff}\)</td>
+                  <td class="eqtable__rhs">\(\displaystyle s = t\)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Slide 15 — Parameterized numbered sets.
+             Adapted from slide 6's second subslide, with one map index
+             required to work uniformly over the fixed oracle set. -->
+        <section class="slide slide--content slide--numbered slide--parameterized-numbered" aria-label="Parameterized numbered sets">
+          <h2>Parameterized numbered sets</h2>
+          <div class="numbered__body">
+            <p class="numbered__changed">Fix a nonempty set of oracles \(\mathbb{P}\subseteq 2^{\mathbb{N}}\).</p>
+            <p>A <em><span class="numbered__changed">parameterized</span> numbered set</em> is a set \(X\) together with a partial surjection <span class="math-nowrap">\(\nu : \mathbb{N} \rightharpoonup X\)</span>.</p>
+            <p class="numbered__morphism">A <em>map</em> \((X_0,\nu_0)\to(X_1,\nu_1)\) is a function \(f : X_0\to X_1\) and a Turing index \(e\) such that <span class="numbered__changed">\(\nu_1(\varphi_e^p(n){\downarrow}) = f(\nu_0(n))\) for all \(p\in\mathbb{P}\)</span> and all \(n\) in the domain of \(\nu_0\).</p>
+          </div>
+        </section>
+
+        <!-- Slide 16 — Real numbers with a fixed set of oracles. -->
+        <section class="slide slide--content slide--reals slide--reals-oracles" data-outline="14" aria-label="What is R this time?">
+          <h2>What is \(\mathbb{R}\) this time? <span class="reals__changed" data-frame="6">Countable</span></h2>
+          <div class="reals__body slide__body--centered">
+            <p class="reals__oracles">Fix \(\mu \in [0,1]^{\mathbb{N}}\). Let \(\mathbb{P}\) be the set of names of \(\mu\).</p>
+            <p>A realizer for \(r \in \mathbb{R}\) is an index \(e\) that computes a Cauchy sequence of \(r\) from any \(p \in \mathbb{P}\). <span class="step reals__changed">Note that the sequence can depend on \(p\).</span></p>
+            <p class="reals__consequence step">\(\mu : \mathbb{N} \to [0,1]\) is surjective ‘in the sense of realizability’: There is a program that, for any realizer \(e\) of \(x \in [0,1]\), computes an \(n\) such that \(\mu(n) = x\) (using any given \(p\) as an oracle).</p>
+            <p class="reals__conclusion step">(It's just the identity map. Doesn't even use \(p\).)</p>
+            <p class="reals__conclusion step reals__changed">\(f(n) = 1^{\mathrm{st}}(n) \cdot (\mu(2^{\mathrm{nd}}(n)) - \frac{1}{2})\) is a surjection from \(\mathbb{N}\) onto \(\mathbb{R}\).</p>
+          </div>
+        </section>
+
+        <!-- Slide 17 — Blechschmidt and Hutzler paper. -->
+        <section class="slide slide--content slide--blechschmidt-hutzler" data-outline="16" aria-label="What can you prove?">
+          <h2>What can you prove?</h2>
+          <figure class="blechschmidt-hutzler__figure slide__body--centered">
+          <img class="blechschmidt-hutzler__paper" src="assets/paper-headers/blechschmidt_hutzler_uncountability.png" alt="A constructive Knaster–Tarski proof of the uncountability of the reals — Ingo Blechschmidt and Matthias Hutzler">
+            <figcaption class="brouwer__year">2019</figcaption>
+          </figure>
+          <div class="blechschmidt-hutzler__statements">
+          <p class="blechschmidt-hutzler__statement">Corollary: For any \(f : \mathbb{N} \to [0,1]\), there is a nonempty set \(X \subseteq [0,1]\) such that for each \(n\), \(f(n)\) is not the supremum of \(X\).</p>
+          <p class="blechschmidt-hutzler__statement step">(me) For any \(f : \mathbb{N} \to [0,1]\), there is a non-decreasing \(g : \mathbb{N} \to [0,1]\) such that for each \(n\), \(f(n)\) is not the supremum of \(g\).</p>
+          </div>
+        </section>
+
+        <!-- Final slide — unnumbered, matching the opening title. -->
+        <section class="slide slide--title slide--thanks" aria-label="Thank You">
+          <h1 class="title__heading">Thank You</h1>
+        </section>
+
+      </div>
+      <div id="loading" role="status">Loading…</div>
+      <div id="pagenum" aria-hidden="true"></div>
+    </div>
+  </main>
+
+
+  <!-- Match the existing paper images: black ink becomes #ffebc5 and white
+       paper becomes #0a0a0a, preserving the original scan and antialiasing. -->
+  <svg class="image-filters" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="portrait-recolor" color-interpolation-filters="sRGB">
+        <feColorMatrix type="saturate" values="0"/>
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="0.0392156863 1"/>
+          <feFuncG type="table" tableValues="0.0392156863 0.9215686275"/>
+          <feFuncB type="table" tableValues="0.0392156863 0.7725490196"/>
+        </feComponentTransfer>
+      </filter>
+      <filter id="paper-recolor" color-interpolation-filters="sRGB">
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="1 0.0392156863"/>
+          <feFuncG type="table" tableValues="0.9215686275 0.0392156863"/>
+          <feFuncB type="table" tableValues="0.7725490196 0.0392156863"/>
+        </feComponentTransfer>
+      </filter>
+      <filter id="paper-recolor-pumpkin" color-interpolation-filters="sRGB">
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="1 0.0392156863"/>
+          <feFuncG type="table" tableValues="0.5686274510 0.0392156863"/>
+          <feFuncB type="table" tableValues="0 0.0392156863"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="deck.js?v=connector-offset-8-20261008"></script>
+</body>
+</html>

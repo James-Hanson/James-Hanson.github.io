@@ -1,0 +1,99 @@
+/* ============================================================
+   PALETTES
+   Both palettes live here. The active one is picked by the
+   data-palette attribute on <html>:
+
+       <html lang="en" data-palette="haunted">
+
+   Switch back by changing that one value to "mystic".
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   SAVED — Mystic Voyage   (previous palette, kept for switching)
+     Dark Wine       #721817
+     Carrot Orange   #fa9f42
+     Yale Blue       #2b4162
+     Dark Emerald    #0b6e4f
+     Alabaster Grey  #e0e0e2
+   ------------------------------------------------------------ */
+:root {
+  --mv-wine:      #721817;
+  --mv-orange:    #fa9f42;
+  --mv-yale:      #2b4162;
+  --mv-emerald:   #0b6e4f;
+  --mv-alabaster: #e0e0e2;
+}
+
+/* ------------------------------------------------------------
+   ACTIVE — Haunted Hues   (Pistol Rose Creations)
+   Names/hexes transcribed from the supplied swatch image.
+   ------------------------------------------------------------ */
+:root {
+  --hh-pumpkin: #ff9100;  /* Burnt Pumpkin    */
+  --hh-amber:   #ffb017;  /* Witchlight Amber */
+  --hh-moss:    #a7c860;  /* Zombie Moss      */
+  --hh-plum:    #9a4d95;  /* Potion Plum      */
+  --hh-vampire: #d33a34;  /* Vampire Kiss     */
+  --hh-fog:     #323031;  /* Crypt Fog        */
+}
+
+/* ------------------------------------------------------------
+   Shared neutrals
+   ------------------------------------------------------------ */
+:root {
+  /* Slide background: true black mixed 80:20 with Crypt Fog, the palette's
+     dark grey.
+       color-mix(in srgb, #000000 80%, #323031)  ->  rgb(10, 9.6, 9.8)
+     A literal hex rather than color-mix(), so it degrades to a valid colour
+     instead of an invalid `color` declaration (which would inherit black). */
+  --off-black: #0a0a0a;
+}
+
+/* ------------------------------------------------------------
+   Role mapping per palette
+   ------------------------------------------------------------ */
+
+[data-palette="haunted"] {
+  --slide-bg:   var(--off-black);   /* off-black slide background */
+  --title-ink:  var(--hh-pumpkin);  /* Burnt Pumpkin text   */
+  --author-ink: var(--hh-pumpkin);
+  --meta-ink:   var(--hh-pumpkin);
+
+  /* Default text colour for content slides: the palette's yellow
+     (Witchlight Amber) mixed 75:25 with white.
+       color-mix(in srgb, #ffffff 75%, var(--hh-amber))  ->  rgb(255, 235.25, 197)
+     Written as a literal hex rather than color-mix() so it degrades to a
+     valid colour everywhere instead of an invalid `color` declaration. */
+  --text-default: #ffebc5;
+  --ink:          var(--text-default);
+
+  /* Slight orange glow on the title. em-based, so it scales with the type. */
+  --glow: 0 0 0.04em rgba(255, 145, 0, 0.9),
+          0 0 0.14em rgba(255, 145, 0, 0.35);
+
+  --strip: linear-gradient(90deg,
+    var(--hh-pumpkin) 0 16.667%,
+    var(--hh-amber)   0 33.333%,
+    var(--hh-moss)    0 50%,
+    var(--hh-plum)    0 66.667%,
+    var(--hh-vampire) 0 83.333%,
+    var(--hh-fog)     0 100%);
+}
+
+[data-palette="mystic"] {
+  --slide-bg:   #f6f7f8;
+  --title-ink:  var(--mv-wine);
+  --author-ink: var(--mv-yale);
+  --meta-ink:   rgba(43, 65, 98, 0.72);
+  --text-default: #1d2b40;
+  --ink:          var(--text-default);
+
+  --glow: none;
+
+  --strip: linear-gradient(90deg,
+    var(--mv-wine)      0 20%,
+    var(--mv-orange)    0 40%,
+    var(--mv-yale)      0 60%,
+    var(--mv-emerald)   0 80%,
+    var(--mv-alabaster) 0 100%);
+}

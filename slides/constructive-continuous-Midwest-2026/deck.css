@@ -1,0 +1,1093 @@
+/* ============================================================
+   deck.css — Constructive math and the continuous degrees
+   Palette: see palettes.css (active palette set on <html data-palette>)
+   ============================================================ */
+
+:root {
+  /* Palette colours now live in palettes.css. */
+  --page: #000000;                /* surround outside the slide */
+
+  /* Beamer's default text font (Computer Modern Sans Serif). */
+  --beamer: "Latin Modern Sans", "CMU Sans Serif", ui-sans-serif, system-ui,
+            -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+           Georgia, "Times New Roman", serif;
+
+  --text: var(--beamer);
+
+  /* Title face (author-supplied, restricted embedding). */
+  --display: "Albertus Medium", var(--text);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Layout: gap around the slide. */
+  --gap: clamp(8px, 1.2vh, 16px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--text);
+  display: grid;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+}
+
+/* ---------- Stage (16:9 letterbox) ---------- */
+
+#viewer {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--gap);
+}
+
+#stage {
+  position: relative;
+  width: min(100%, calc((100vh - var(--gap) * 2) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  background: var(--slide-bg);
+  overflow: hidden;
+  container-type: size;
+}
+
+#slides { position: absolute; inset: 0; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 7cqh 8cqw;
+  display: none;
+  opacity: 0;
+  transform: translateY(1.4cqh);
+  transition: opacity 0.42s var(--ease), transform 0.42s var(--ease);
+}
+
+.slide.is-active {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Title slide ---------- */
+
+.slide--title {
+  justify-content: center;
+  text-align: center;
+  /* Whole title slide in Albertus (children inherit). */
+  font-family: var(--display);
+  /* Whole title slide in small caps (children inherit). */
+  font-variant-caps: small-caps;
+}
+
+.title__body {
+  width: 100%;
+  flex: 1;
+  /* Name to the top, venue/date to the bottom, title in the middle. */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title__author {
+  margin: 0;
+  font-size: 3.5cqw;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--author-ink);
+  /* Visual nudge only. A margin here would enlarge the flex item and drag the
+     space-between distribution, moving the title and venue too. */
+  transform: translateY(1.7cqh);
+}
+
+.title__heading {
+  margin: 0;
+  /* Stick out past the slide's 8cqw side padding into the margin. */
+  margin-inline: -8cqw;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 9.2cqw;
+  line-height: 1.0;
+  letter-spacing: 0.03em;
+  color: var(--title-ink);
+  text-shadow: var(--glow);
+}
+
+/* Stacked title: two full-size lines with a small "and the" between.
+   nowrap guarantees one line each, cross-browser; the size is chosen so the
+   longest line still fits with room to spare in Firefox's (wider) metrics. */
+.title__heading > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.slide--thanks .title__heading {
+  font-size: 16.5cqw;
+  white-space: nowrap;
+}
+
+.title__and {
+  font-size: 0.4em;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  /* Visual nudge only, so "Continuous Degrees" below stays put. */
+  transform: translateY(1cqh);
+}
+
+.title__meta {
+  margin-top: 0;
+  font-size: 2.5cqw;
+  line-height: 1.4;
+  color: var(--meta-ink);
+}
+
+.title__meta > span { display: block; }
+
+/* ---------- Content slides ---------- */
+
+.slide--content {
+  justify-content: center;
+}
+
+/* Justify prose, with normal word spacing on the last line. */
+.kleene__observation,
+.slide--numbered p,
+.tot__claim,
+.reals__body p,
+.questions__body p,
+.questions__body li,
+.variants__body li,
+.parameterized__body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.slide--content .katex {
+  hyphens: none;
+}
+
+/* Beamer-style frame titles: at the top of the content area, aligned left.
+   Applies to all content/placeholder headings; the title page uses h1. */
+.slide:has(> h2) {
+  justify-content: flex-start;
+}
+
+.slide > h2 {
+  align-self: stretch;
+  flex-shrink: 0;
+  margin: 0 0 7cqh;
+  font-size: 4.6cqw;
+  font-weight: normal;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.slide--content > h2 {
+  /* Reserve the same single-line title height, including titles with math
+     or a subtitle that is hidden on the first subslide. */
+  height: 1.2em;
+  white-space: nowrap;
+}
+
+.slide > h2 .katex {
+  /* Inline math must not enlarge the title or stretch its line box. */
+  font-size: 1em;
+  line-height: 1;
+}
+
+.slide__body--centered {
+  /* Center against the whole slide, independently of the title and its gap. */
+  position: absolute;
+  top: 50%;
+  inset-inline: 8cqw;
+  transform: translateY(-50%);
+}
+
+.image-filters {
+  position: absolute;
+  pointer-events: none;
+}
+
+.eqtable {
+  border-collapse: collapse;
+  border: none;
+  margin: 0 auto;
+  font-size: 2.3cqw;
+}
+
+.eqtable td {
+  border: none;
+  padding: 0.34em 0.55em;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.eqtable__lhs { text-align: left; }
+.eqtable__iff { text-align: center; }
+.eqtable__rhs { text-align: left; }
+
+.disj {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  align-items: baseline;
+  column-gap: 0.3em;
+}
+.disj__op { text-align: right; }
+
+/* ---------- Kleene slide ---------- */
+
+/* Two columns: the realizability table on the left, and on the right the 1945
+   paper header above Kleene's portrait. The paper strip is out of flow (see
+   below) so the aside only needs to be as wide as the portrait.
+
+   Padding is tighter than the deck default and the row is left-aligned: the
+   table is pushed as far left as it will go, which is what buys horizontal
+   room for the paper strip, since the strip's left edge is bounded by the
+   rightmost ink of the table row it sits beside. */
+.slide.slide--kleene {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2cqw;
+  padding: 4cqh 2cqw;
+}
+
+.slide.slide--kleene .eqtable {
+  /* Table is the main column's subslide-2 content; the column handles sizing. */
+  margin: 0;
+}
+
+.slide--kleene.is-negation-highlighted .eqtable__negation {
+  color: var(--hh-pumpkin);
+}
+
+/* The swapping column. Both children occupy the same grid cell, so the cell is
+   sized by the larger of the two and neither subslide changes the column's
+   dimensions -- which is what keeps the portrait still when the content
+   swaps. Hidden frames use visibility, not display, so they keep contributing
+   to layout while off. */
+.kleene__main {
+  flex: 1 1 auto;
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+}
+
+.kleene__main > * {
+  grid-area: 1 / 1;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.slide [data-frame]:not(.is-shown) {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide [data-frame].is-shown {
+  visibility: visible;
+  opacity: 1;
+}
+
+.kleene__aside {
+  flex: 0 0 auto;
+  align-self: center;
+  margin-left: auto;        /* pushed right, then pulled back in towards centre */
+  margin-right: 8cqw;
+  display: grid;
+  place-items: center;
+}
+
+.kleene__aside > * {
+  grid-area: 1 / 1;
+}
+
+.kleene__statement {
+  width: 0;
+  min-width: calc(100% + 6cqw);
+  justify-self: start;
+}
+
+.kleene__observation {
+  margin: 0;
+  font-size: 2.6cqw;
+  line-height: 1.4;
+}
+
+.kleene__lem-question {
+  margin: 3cqh 0 0;
+  font-size: 12cqw;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Paper strip: now the left column's subslide-1 content, sized to that column
+   rather than absolutely positioned across the slide. */
+.kleene__paper {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Portrait is sized by height so the tighter face crop doesn't force the
+   aside taller than the slide. */
+.kleene__portrait {
+  display: block;
+  height: 64cqh;
+  width: auto;
+}
+
+/* The image carries ~20% of replicated ground above the subject, ~13% at the
+   sides, and NONE below (replicating the suit downward smeared it, which is
+   what looked bad). The added margin also carries low-frequency value noise,
+   baked into the PNG, so the replication doesn't read as vertical streaks.
+
+   Ellipse centre is at 50% because the padding is all above: its top lands on
+   the canvas edge, so the top fade spans exactly the added margin and reaches
+   zero where the image ends. Its bottom lands past the image edge, so the suit
+   fades out instead of sitting at partial opacity as a rim. Horizontal radius
+   is half the width, so the side fade also reaches zero at the edge. */
+.kleene__portrait {
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%,
+      #000 66%, rgba(0,0,0,0.60) 80%, rgba(0,0,0,0.22) 92%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%,
+      #000 66%, rgba(0,0,0,0.60) 80%, rgba(0,0,0,0.22) 92%, transparent 100%);
+}
+
+/* ---------- Steps (subslides) ---------- */
+
+/* A .step is hidden until advanced to, then shown instantly -- no fade.
+   Revealing steps does not change the slide number: deck.js derives that from
+   the active slide, not from how many times a key has been pressed. */
+.step {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.step.is-shown {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* LEM, struck out. Superimposed on whatever the slide already shows -- no
+   background of its own, so Brouwer's paper and portrait stay visible under
+   it. */
+.lem-no {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+/* Where the mark overlays other content (slide 2's subslide), the whole group
+   -- letters and ring together -- casts a soft halo in the slide's own
+   background colour, so the paper and portrait underneath clear away behind
+   the mark as one shape.
+
+   The filter is on the container, not on the children separately: drop-shadow
+   follows the rendered alpha of everything inside, so one filter covers the
+   union of the letterforms and the stroked ring. Per-child halos would instead
+   produce two overlapping clearings with a visible join where they meet. */
+.slide--brouwer .lem-no,
+.slide--halting .lem-no {
+  filter: drop-shadow(0 0 6px var(--slide-bg))
+          drop-shadow(0 0 14px var(--slide-bg))
+          drop-shadow(0 0 26px var(--slide-bg));
+}
+
+/* Independently packed phrases spill beyond the viewport. */
+.halting-cloud {
+  position: fixed;
+  inset: -4vh -5vw;
+  background: var(--slide-bg);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.is-halting .halting-cloud {
+  visibility: visible;
+}
+
+body.is-halting #stage {
+  background: transparent;
+}
+
+.halting-cloud > span {
+  position: absolute;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.lem-no__text,
+.lem-no__mark {
+  grid-area: 1 / 1;   /* stack both in the same cell, centred */
+}
+
+.lem-no__text {
+  font-size: 18.2cqw;   /* 26cqw x 0.7 */
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  /* Grid centring aligns BOXES, but a text box carries ascent headroom above
+     the cap height, so the capitals sit low in it (~0.065em at this size) and
+     the ring read as off-centre. Nudge the text up by that much; em-based so
+     it tracks the font-size. */
+  transform: translateY(-0.065em);
+}
+
+/* Sized to nearly the full slide height: the mark is square, and the slide is
+   16:9, so height is what caps it -- a circle can never reach the frame's
+   width. 54cqw of 846px is ~812px against a slide 846px tall.
+
+   Explicit z-index is required: the text carries a transform (for its optical
+   centring), which makes it a stacking context and promotes it to the
+   positioned paint layer, so it would otherwise cover the mark despite
+   coming first in the DOM. */
+.lem-no__mark {
+  position: relative;
+  z-index: 1;
+  width: 24.5cqw;   /* 35cqw x 0.7 */
+  height: 24.5cqw;
+  fill: none;
+  stroke: var(--hh-pumpkin);
+  stroke-width: 10;
+}
+
+/* ---------- Brouwer slide ---------- */
+
+/* Two columns: the paper's title block on the left with its year beneath it,
+   and the portrait on the right, feathered into the slide with a mask so it
+   has no rectangular edge.
+
+   Selector is `.slide.slide--brouwer` (not just `.slide--brouwer`) because
+   `.slide.is-active` sets flex-direction: column at equal-plus specificity; a
+   bare class would lose and the two columns would stack vertically.
+
+   Padding is tighter than the deck default so the two images can be as large
+   as the slide allows: the row consumes the full content width, so anything
+   one image gains the other loses. */
+.slide.slide--brouwer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1cqw;
+  padding: 4cqh 2.5cqw;
+}
+
+/* Takes whatever width is left once the portrait has its space, so the paper
+   is as large as the row allows. */
+.brouwer__left {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.brouwer__paper {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.brouwer__year {
+  margin: 2.4cqh 0 0;
+  font-size: 3.2cqw;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.brouwer__portrait {
+  flex: 0 0 auto;
+  /* Sized by height, not width: the source is portrait-orientation, so a
+     width-based size would run to ~69cqh and swallow the slide. */
+  height: 72cqh;
+  width: auto;
+  /* Fade around the edge so the photograph dissolves into the slide rather
+     than sitting in a visible rectangle. Shorter vertical radius, because the
+     photo's bright hair sits right at its top edge, so even a mild falloff
+     left a visible horizontal seam where the crop began. */
+  -webkit-mask-image: radial-gradient(ellipse 46% 52% at 50% 50%, #000 38%, transparent 100%);
+  mask-image: radial-gradient(ellipse 46% 52% at 50% 50%, #000 38%, transparent 100%);
+}
+
+/* ---------- Markov's Principle (Stein's Law) ---------- */
+
+.slide.slide--blechschmidt-hutzler {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.blechschmidt-hutzler__figure {
+  margin: 0;
+  top: 19%;
+  transform: none;
+}
+
+.blechschmidt-hutzler__figure .brouwer__year {
+  position: absolute;
+  left: 85%;
+  top: 54%;
+  margin: 0;
+  font-size: 2.7cqw;
+}
+
+.blechschmidt-hutzler__statements {
+  position: absolute;
+  left: 8cqw;
+  right: 2cqw;
+  top: 56%;
+  display: grid;
+  gap: 4cqh;
+}
+
+.blechschmidt-hutzler__statement {
+  margin: 0;
+  font-size: 3cqw;
+  line-height: 1.4;
+}
+
+.blechschmidt-hutzler__statement .katex {
+  font-size: 1em;
+  white-space: nowrap;
+}
+
+.blechschmidt-hutzler__paper {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: url(#paper-recolor);
+}
+
+.stein__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8cqh;
+  transform: translateY(-1cqh);
+}
+
+.stein__principle {
+  margin: 0;
+  font-size: 3.5cqw;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  transform: translateY(-1cqh);
+}
+
+.stein__figure {
+  width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.stein__figure figcaption {
+  margin-top: 1.5cqh;
+  font-size: 1.6cqw;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.stein__scan {
+  position: relative;
+}
+
+.stein__passage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+[data-palette="haunted"] .stein__passage {
+  filter: url(#paper-recolor);
+}
+
+.stein__highlight {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+[data-palette="haunted"] .stein__highlight {
+  display: block;
+}
+
+/* ---------- Numbered sets ---------- */
+
+.math-nowrap {
+  white-space: nowrap;
+}
+
+.slide--numbered,
+.slide--definition {
+  justify-content: center;
+}
+
+.slide--numbered p {
+  margin: 0;
+  font-size: 3.2cqw;
+  line-height: 1.5;
+}
+
+.slide--numbered .numbered__morphism {
+  margin-top: 4cqh;
+}
+
+.slide--parameterized-numbered .numbered__body {
+  transform: translateY(-4cqh);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3cqh;
+}
+
+.slide--parameterized-numbered .numbered__morphism {
+  margin-top: 0;
+}
+
+.slide--parameterized-numbered .numbered__changed {
+  color: var(--hh-pumpkin);
+}
+
+.slide--definition p {
+  margin: 0 0 2.5cqh;
+  font-size: 2.7cqw;
+  line-height: 1.35;
+}
+
+.slide--definition .definition__formula {
+  margin-block: 1cqh 3cqh;
+  text-align: center;
+  font-size: 2.8cqw;
+  white-space: nowrap;
+}
+
+.slide--per p {
+  font-size: 2.35cqw;
+}
+
+.slide--per .definition__formula {
+  font-size: 2.4cqw;
+}
+
+.slide--per > p {
+  margin: 0;
+  font-size: 3.2cqw;
+  line-height: 1.5;
+}
+
+.per__conditions {
+  margin-top: 4cqh;
+}
+
+.slide--assembly p {
+  margin: 0;
+  font-size: 3.2cqw;
+  line-height: 1.5;
+}
+
+.slide--assembly .assembly__comparison {
+  margin-top: 4cqh;
+}
+
+/* ---------- An uncountable subset of N ---------- */
+
+.tot__body,
+.cantor__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.tot__body p,
+.cantor__body p,
+.reals__body p {
+  margin: 0;
+  /* Match slide 6's rendered math size (3.2cqw × 1.21) for all body text. */
+  font-size: 3.872cqw;
+}
+
+.tot__body .katex,
+.cantor__body .katex,
+.reals__body .katex,
+.questions__body .katex,
+.variants__body .katex,
+.miller__body .katex,
+.parameterized__body .katex {
+  /* Keep equations and inline math at the same size as the prose. */
+  font-size: 1em;
+}
+
+.reals__body {
+  top: 55%;
+}
+
+.reals__body p {
+  /* Reserve room for the third reveal while keeping prose and math equal. */
+  font-size: 3.2cqw;
+  line-height: 1.4;
+}
+
+.reals__body .reals__consequence,
+.reals__body .reals__conclusion {
+  margin-top: 3cqh;
+}
+
+.reals__consequence .katex-display {
+  margin: 1.5cqh 0 0;
+}
+
+.slide--reals-oracles .reals__body {
+  top: 57%;
+}
+
+.slide--reals-oracles .reals__body p {
+  font-size: 2.9cqw;
+}
+
+.slide--reals-oracles .reals__oracles {
+  margin-bottom: 3cqh;
+}
+
+.reals__changed {
+  color: var(--hh-pumpkin);
+}
+
+.tot__body .tot__claim {
+  line-height: 1.4;
+  transform: translateY(2cqh);
+}
+
+.tot__diagonal {
+  transform: translateY(-3cqh);
+}
+
+.tot__diagonal .katex-display,
+.cantor__body .katex-display {
+  margin: 0;
+}
+
+/* ---------- Questions and bullet slides ---------- */
+
+.questions__body,
+.variants__body,
+.miller__body {
+  font-size: 3.872cqw;
+  line-height: 1.4;
+}
+
+.miller__body {
+  font-size: 3.2cqw;
+}
+
+.miller__body p {
+  margin: 0;
+}
+
+.miller__body .non-total__conclusion {
+  margin-top: 5cqh;
+  color: var(--hh-pumpkin);
+  text-align: center;
+}
+
+.non-total__theorem,
+.non-total__kakutani,
+.non-total__value {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Anchor the annotation to the unchanged inline text. Every added visual
+   is out of flow, so no existing text moves between subslides. */
+.non-total__annotation {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: var(--hh-pumpkin);
+  pointer-events: none;
+}
+
+.non-total__glow {
+  position: absolute;
+  inset: -0.08em -0.2em;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 145, 0, 0.5) 0%,
+    rgba(255, 145, 0, 0.24) 25%,
+    rgba(255, 145, 0, 0.07) 45%,
+    rgba(255, 145, 0, 0) 68%);
+  filter: blur(0.12em);
+}
+
+.non-total__connector {
+  position: absolute;
+  left: 50%;
+  top: -9cqh;
+  width: calc(50% + 6cqw);
+  height: 9cqh;
+  overflow: visible;
+  fill: none;
+  stroke: var(--hh-pumpkin);
+  stroke-width: 0.16cqw;
+  stroke-linejoin: miter;
+}
+
+.non-total__label {
+  position: absolute;
+  left: calc(100% + 6cqw);
+  top: -9cqh;
+  transform: translateY(-50%);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.non-total__surjection-connector,
+.non-total__quote-connector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--hh-pumpkin);
+  stroke-width: 0.16cqw;
+  stroke-linejoin: miter;
+}
+
+.non-total__quote {
+  color: var(--hh-pumpkin);
+  position: absolute;
+  inset-inline: 8cqw;
+  bottom: 5cqh;
+  margin: 0;
+  font-size: 2cqw;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.non-total__attribution {
+  white-space: nowrap;
+}
+
+.miller__definition {
+  display: grid;
+  gap: 1.5cqh;
+  margin-top: 5cqh;
+  text-align: center;
+}
+
+.miller__definition .katex-display {
+  margin: 0;
+}
+
+.questions__body p {
+  margin: 0 0 4cqh;
+}
+
+.questions__body ul,
+.variants__body ul,
+.miller__body ul {
+  margin: 0;
+  padding-inline-start: 1.15em;
+  display: grid;
+  gap: 3cqh;
+}
+
+.variants__body,
+.miller__body {
+  top: 55%;
+}
+
+.slide--miller .miller__body {
+  top: 57%;
+  right: 30cqw;
+}
+
+.cantor__body {
+  width: 54cqw;
+}
+
+.miller__portrait,
+.cantor__portrait {
+  position: absolute;
+  right: 4.5cqw;
+  top: 54%;
+  transform: translateY(-50%);
+  height: 72cqh;
+  width: auto;
+  filter: url(#portrait-recolor);
+  -webkit-mask-image: radial-gradient(ellipse 46% 52% at 50% 50%, #000 38%, transparent 100%);
+  mask-image: radial-gradient(ellipse 46% 52% at 50% 50%, #000 38%, transparent 100%);
+}
+
+.variants__body ul,
+.miller__body ul {
+  gap: 5cqh;
+}
+
+/* Never break or hyphenate words in these lists: keep full words on one line. */
+.variants__body li,
+.miller__body li {
+  text-align: left;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* ---------- Parameterized realizability ---------- */
+
+.parameterized__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2cqh;
+  /* Match the earlier table's rendered math: 2.3cqw × KaTeX's 1.21. */
+  font-size: 2.783cqw;
+  line-height: 1.25;
+}
+
+.parameterized__body p {
+  margin: 0;
+}
+
+.parameterized__table {
+  font-size: inherit;
+}
+
+.parameterized__table td {
+  padding: 0.1em 0.3em;
+}
+
+.parameterized__body .parameterized__changed {
+  color: var(--hh-pumpkin);
+}
+
+.questions__bijection,
+.questions__crossed-text {
+  position: relative;
+}
+
+.questions__crossed-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.questions__strike {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1.45em;
+  transform: translateY(-50%);
+  overflow: visible;
+  fill: none;
+  stroke: var(--hh-pumpkin);
+  stroke-width: 0.2cqw;
+  stroke-linejoin: miter;
+  pointer-events: none;
+}
+
+.questions__body .questions__consequence {
+  /* Use the space below the list without moving it between subslides. */
+  position: absolute;
+  top: 100%;
+  inset-inline: -6cqw;
+  margin: 3cqh 0 0;
+  font-size: 3cqw;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--hh-pumpkin);
+  white-space: nowrap;
+}
+
+/* ---------- Placeholder slides ---------- */
+
+/* Outline stand-ins: white ground, black text. */
+.slide--placeholder {
+  background: #ffffff;
+  color: #000000;
+  justify-content: center;
+  align-items: stretch;
+  text-align: left;
+}
+
+.slide--placeholder h2 {
+  margin: 0 0 4cqh;
+  text-wrap: balance;
+}
+
+.slide--placeholder ul {
+  margin: 0;
+  padding-left: 1.15em;
+  display: grid;
+  gap: 2.4cqh;
+  font-size: 2.4cqw;
+  line-height: 1.35;
+}
+
+/* The number lives in #stage, not in the slide, so it needs to follow the
+   slide's colour scheme explicitly rather than inherit it. */
+#stage.is-placeholder #pagenum { color: #000000; }
+
+/* ---------- Slide number ---------- */
+
+/* Inside #stage, so it tracks the slide rather than the viewport and stays on
+   the panel when the slide is letterboxed. cq units, so it scales with the
+   slide like the rest of the content. */
+#pagenum {
+  position: absolute;
+  right: 3cqw;
+  bottom: 3.5cqh;
+  font-size: 1.85cqw;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.25s var(--ease);
+}
+
+#pagenum:empty { opacity: 0; }
+
+/* ---------- Chrome ---------- */
+
+#loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--title-ink);
+  background: var(--slide-bg);
+  transition: opacity 0.3s var(--ease);
+}
+#loading.is-hidden { opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, #loading { transition: none; }
+}

@@ -1,0 +1,38 @@
+/* ============================================================
+   Latin Modern Sans — local webfonts
+   The OpenType equivalent of Beamer's default text font
+   (Computer Modern Sans Serif). Source: GUST / Latin Modern,
+   redistributed via sugina-dev/latin-modern-web. GUST Font License.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('lmsans-regular-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('lmsans-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('lmsans-oblique-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('lmsans-boldoblique-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

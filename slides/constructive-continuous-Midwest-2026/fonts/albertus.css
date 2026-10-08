@@ -1,0 +1,13 @@
+/* ============================================================
+   Albertus Medium — title face only
+   Author-supplied (see LICENSE-albertus.txt). Used on the title
+   slide; all other text stays with Latin Modern Sans.
+   ============================================================ */
+
+@font-face {
+  font-family: 'Albertus Medium';
+  src: url('albertus-medium.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

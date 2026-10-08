@@ -1,0 +1,19 @@
+Albertus Medium — provenance note
+=================================
+
+File:     fonts/albertus-medium.ttf
+Identity: "Albertus Medium", Version 1.3 (Hewlett-Packard build)
+Trademark: Albertus Medium is a trademark of Monotype.
+Role:     Title slide face only. All other slide text uses Latin Modern Sans.
+
+Provenance
+----------
+Obtained by the author from a freely available download. Author has reviewed
+the source and considers it fine to use for this deck. Decision recorded
+here; no further restrictions applied in this project.
+
+Technical note
+--------------
+Only one weight (Regular) is present in the source, so the title is set to
+font-weight: 400. Heavier weights would trigger the browser's synthetic
+(faux) bold, which distorts Albertus' flared serifs.
